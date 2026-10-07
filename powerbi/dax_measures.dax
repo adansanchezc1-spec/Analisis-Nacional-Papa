@@ -1,0 +1,226 @@
+// ==============================================================================
+// CATÁLOGO CANÓNICO DE MEDIDAS DAX - DASHBOARD POWER BI PAPA COLOMBIA (2019-2025)
+// Plataforma Analítica Agropecuaria Colombia | Marco PDCO & SWEBOK
+// ==============================================================================
+
+// ------------------------------------------------------------------------------
+// CARPETA 01: KPIS Y MÉTRICAS FUNDAMENTALES DE OFERTA Y DEMANDA
+// ------------------------------------------------------------------------------
+
+[Producción Total Ton] = 
+SUM(Fact_Produccion_EVA[produccion_ton])
+/* Formato: #,##0 Ton | Volumen agregado nacional cosechado según EVA/MinAgricultura */
+
+[Área Sembrada Total Ha] = 
+SUM(Fact_Produccion_EVA[area_sembrada_ha])
+/* Formato: #,##0 Ha | Superficie total sembrada en hectáreas */
+
+[Área Cosechada Total Ha] = 
+SUM(Fact_Produccion_EVA[area_cosechada_ha])
+/* Formato: #,##0 Ha | Superficie total cosechada efectiva en hectáreas */
+
+[Rendimiento Promedio Ponderado Ton_Ha] = 
+DIVIDE(
+    [Producción Total Ton],
+    [Área Cosechada Total Ha],
+    BLANK()
+)
+/* Formato: #,##0.00 Ton/Ha | Eficiencia agronómica por hectárea cosechada */
+
+[Tasa de Pérdida Cosecha %] = 
+DIVIDE(
+    [Área Sembrada Total Ha] - [Área Cosechada Total Ha],
+    [Área Sembrada Total Ha],
+    0
+)
+/* Formato: 0.00% | Porcentaje de superficie sembrada no recolectada */
+
+[Abastecimiento Mayorista Total Ton] = 
+SUM(Fact_Abastecimiento_SIPSA[volumen_ingreso_ton])
+/* Formato: #,##0 Ton | Volumen ingresado a centrales de abasto (SIPSA/DANE) */
+
+[Precio Promedio Ponderado $/Kg] = 
+DIVIDE(
+    SUMX(
+        Fact_Precios_SIPSA,
+        Fact_Precios_SIPSA[precio_prom_kg] * Fact_Precios_SIPSA[num_transacciones]
+    ),
+    SUM(Fact_Precios_SIPSA[num_transacciones]),
+    AVERAGE(Fact_Precios_SIPSA[precio_prom_kg])
+)
+/* Formato: $#,##0 /Kg | Cotización mayorista ponderada por transacciones */
+
+[Spread de Precios Max_Min $/Kg] = 
+MAX(Fact_Precios_SIPSA[precio_max_kg]) - MIN(Fact_Precios_SIPSA[precio_min_kg])
+/* Formato: $#,##0 /Kg | Dispersión intradía de cotizaciones mayoristas */
+
+// ------------------------------------------------------------------------------
+// CARPETA 02: TIME INTELLIGENCE Y CRECIMIENTO INTERANUAL (YoY)
+// ------------------------------------------------------------------------------
+
+[Producción Año Anterior (PY)] = 
+CALCULATE(
+    [Producción Total Ton],
+    SAMEPERIODLASTYEAR(Dim_Tiempo[fecha])
+)
+/* Formato: #,##0 Ton */
+
+[Variación Interanual Producción YoY %] = 
+DIVIDE(
+    [Producción Total Ton] - [Producción Año Anterior (PY)],
+    [Producción Año Anterior (PY)],
+    BLANK()
+)
+/* Formato: +0.00%;-0.00%;0.00% | Dinámica de expansión o contracción de oferta */
+
+[Abastecimiento Año Anterior (PY)] = 
+CALCULATE(
+    [Abastecimiento Mayorista Total Ton],
+    SAMEPERIODLASTYEAR(Dim_Tiempo[fecha])
+)
+/* Formato: #,##0 Ton */
+
+[Variación Interanual Abastecimiento YoY %] = 
+DIVIDE(
+    [Abastecimiento Mayorista Total Ton] - [Abastecimiento Año Anterior (PY)],
+    [Abastecimiento Año Anterior (PY)],
+    BLANK()
+)
+/* Formato: +0.00%;-0.00%;0.00% */
+
+[Precio Año Anterior (PY)] = 
+CALCULATE(
+    [Precio Promedio Ponderado $/Kg],
+    SAMEPERIODLASTYEAR(Dim_Tiempo[fecha])
+)
+/* Formato: $#,##0 /Kg */
+
+[Inflación Interanual Precio YoY %] = 
+DIVIDE(
+    [Precio Promedio Ponderado $/Kg] - [Precio Año Anterior (PY)],
+    [Precio Año Anterior (PY)],
+    BLANK()
+)
+/* Formato: +0.00%;-0.00%;0.00% | Variación anual de precios nominales */
+
+[Abastecimiento YTD Ton] = 
+TOTALYTD(
+    [Abastecimiento Mayorista Total Ton],
+    Dim_Tiempo[fecha]
+)
+/* Formato: #,##0 Ton | Acumulado del año a la fecha */
+
+// ------------------------------------------------------------------------------
+// CARPETA 03: VOLATILIDAD, DISPERSIÓN Y GESTIÓN DEL RIESGO
+// ------------------------------------------------------------------------------
+
+[Desviación Estándar Precios $/Kg] = 
+STDEV.P(Fact_Precios_SIPSA[precio_prom_kg])
+/* Formato: $#,##0.00 */
+
+[Coeficiente de Variación Precio CV%] = 
+DIVIDE(
+    [Desviación Estándar Precios $/Kg],
+    [Precio Promedio Ponderado $/Kg],
+    BLANK()
+)
+/* Formato: 0.00% | Medida relativa de riesgo de volatilidad */
+
+[Banda Superior Volatilidad (+1 Sigma)] = 
+[Precio Promedio Ponderado $/Kg] + [Desviación Estándar Precios $/Kg]
+/* Formato: $#,##0 */
+
+[Banda Inferior Volatilidad (-1 Sigma)] = 
+MAX(
+    0,
+    [Precio Promedio Ponderado $/Kg] - [Desviación Estándar Precios $/Kg]
+)
+/* Formato: $#,##0 */
+
+[Semáforo de Volatilidad de Precios] = 
+SWITCH(
+    TRUE(),
+    ISBLANK([Coeficiente de Variación Precio CV%]), "⚪ Sin Datos",
+    [Coeficiente de Variación Precio CV%] >= 0.35, "🔴 Alta Volatilidad (>35%)",
+    [Coeficiente de Variación Precio CV%] >= 0.20, "🟡 Moderada (20%-35%)",
+    "🟢 Baja y Estable (<20%)"
+)
+/* Clasificación categórica para tarjetas de estado y alertas */
+
+// ------------------------------------------------------------------------------
+// CARPETA 04: ESTACIONALIDAD Y CICLOS AGROPECUARIOS
+// ------------------------------------------------------------------------------
+
+[IVE Abastecimiento Promedio] = 
+AVERAGE(Fact_Abastecimiento_SIPSA[indice_estacional_oferta_ieo])
+/* Formato: 0.000 | > 1.0 indica sobreoferta estacional (pico); < 1.0 déficit */
+
+[IVE Precio Promedio] = 
+AVERAGE(Fact_Precios_SIPSA[indice_estacional_precio_iep])
+/* Formato: 0.000 | > 1.0 indica presión inflacionaria estacional */
+
+[Fase del Ciclo Estacional] = 
+SWITCH(
+    TRUE(),
+    [IVE Abastecimiento Promedio] >= 1.05 && [IVE Precio Promedio] <= 0.95, "🟢 Abundancia y Precios Bajos (Pico de Cosecha)",
+    [IVE Abastecimiento Promedio] <= 0.95 && [IVE Precio Promedio] >= 1.05, "🔴 Escasez y Precios Altos (Valle de Cosecha)",
+    "🟡 Fase de Transición de Mercado"
+)
+
+// ------------------------------------------------------------------------------
+// CARPETA 05: CONCENTRACIÓN Y GEOGRAFÍA DEL MERCADO
+// ------------------------------------------------------------------------------
+
+[Producción Cundinamarca Ton] = 
+CALCULATE(
+    [Producción Total Ton],
+    Dim_Geografia[departamento] = "CUNDINAMARCA"
+)
+
+[Producción Boyacá Ton] = 
+CALCULATE(
+    [Producción Total Ton],
+    Dim_Geografia[departamento] = "BOYACA"
+)
+
+[Producción Nariño Ton] = 
+CALCULATE(
+    [Producción Total Ton],
+    Dim_Geografia[departamento] = "NARINO"
+)
+
+[Participación Eje Cundinamarca_Boyacá %] = 
+DIVIDE(
+    [Producción Cundinamarca Ton] + [Producción Boyacá Ton],
+    CALCULATE([Producción Total Ton], ALL(Dim_Geografia)),
+    BLANK()
+)
+/* Formato: 0.00% | Proporción de la oferta originada en el altiplano cundiboyacense */
+
+[Participación Corabastos en Abastecimiento %] = 
+DIVIDE(
+    CALCULATE(
+        [Abastecimiento Mayorista Total Ton],
+        Dim_Mercado[mercado_mayorista] = "BOGOTA, D.C., CORABASTOS"
+    ),
+    CALCULATE([Abastecimiento Mayorista Total Ton], ALL(Dim_Mercado)),
+    BLANK()
+)
+/* Formato: 0.00% | Dependencia de la demanda hacia el principal hub del país */
+
+// ------------------------------------------------------------------------------
+// CARPETA 06: SIMULADOR DE CHOQUES DE OFERTA Y SENSIBILIDAD (WHAT-IF)
+// Requiere parámetro de hipótesis: 'Simulador Choque Oferta'[Porcentaje Choque]
+// Elasticidad Precio de la Demanda empírica estimada: Ep = -0.42 (Inelástica)
+// ------------------------------------------------------------------------------
+
+[Impacto Simulado en Precio %] = 
+VAR ChoquePct = SELECTEDVALUE('Parametro_Choque_Oferta'[Valor], 0) // Ej: -0.15 para caída del 15%
+VAR Elasticidad = -0.42
+RETURN
+DIVIDE(-ChoquePct, -Elasticidad, 0)
+/* Formato: +0.00%;-0.00%;0.00% | Cambio porcentual predicho en precios */
+
+[Precio Simulado $/Kg] = 
+[Precio Promedio Ponderado $/Kg] * (1 + [Impacto Simulado en Precio %])
+/* Formato: $#,##0 /Kg | Precio proyectado bajo el escenario de choque */

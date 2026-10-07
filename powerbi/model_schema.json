@@ -1,0 +1,189 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/semantic-model/definition/model/1.0.0/schema.json",
+  "name": "Modelo_Analitico_Mercado_Papa_Colombia",
+  "compatibilityLevel": 1550,
+  "description": "Modelo Dimensional en Estrella (Kimball) para la caracterización integral de la oferta (EVA), demanda mayorista (SIPSA) y precios de la papa en Colombia (2019-2025).",
+  "tables": [
+    {
+      "name": "Dim_Tiempo",
+      "description": "Dimensión de calendario conformada mensual con jerarquías agrícolas y temporales.",
+      "columns": [
+        {"name": "id_tiempo", "dataType": "int64", "isKey": true},
+        {"name": "fecha", "dataType": "dateTime", "formatString": "yyyy-MM-dd"},
+        {"name": "año", "dataType": "int64"},
+        {"name": "mes", "dataType": "int64"},
+        {"name": "nombre_mes", "dataType": "string"},
+        {"name": "mes_corto", "dataType": "string"},
+        {"name": "año_mes", "dataType": "string", "sortByColumn": "orden_año_mes"},
+        {"name": "trimestre", "dataType": "string"},
+        {"name": "año_trimestre", "dataType": "string"},
+        {"name": "semestre", "dataType": "string"},
+        {"name": "año_semestre", "dataType": "string"},
+        {"name": "periodo_agricola", "dataType": "string"},
+        {"name": "orden_año_mes", "dataType": "int64", "isHidden": true}
+      ]
+    },
+    {
+      "name": "Dim_Geografia",
+      "description": "Dimensión espacial conformada a nivel de código municipal DIVIPOLA (DANE).",
+      "columns": [
+        {"name": "cod_mpio", "dataType": "string", "isKey": true},
+        {"name": "municipio", "dataType": "string"},
+        {"name": "cod_depto", "dataType": "string"},
+        {"name": "departamento", "dataType": "string"},
+        {"name": "region_natural", "dataType": "string"},
+        {"name": "es_productor_destacado", "dataType": "boolean"}
+      ]
+    },
+    {
+      "name": "Dim_Variedad",
+      "description": "Dimensión de variedades botánicas y comerciales de papa.",
+      "columns": [
+        {"name": "cod_variedad", "dataType": "string", "isKey": true},
+        {"name": "nombre_variedad", "dataType": "string"},
+        {"name": "variedad_canonica", "dataType": "string"},
+        {"name": "nombre_cientifico", "dataType": "string"},
+        {"name": "ciclo_fenologico_dias", "dataType": "int64"},
+        {"name": "segmento_mercado", "dataType": "string"},
+        {"name": "descripcion", "dataType": "string"}
+      ]
+    },
+    {
+      "name": "Dim_Mercado",
+      "description": "Dimensión de centrales de abasto y mercados mayoristas cubiertos por SIPSA.",
+      "columns": [
+        {"name": "id_mercado", "dataType": "int64", "isKey": true},
+        {"name": "mercado_mayorista", "dataType": "string"},
+        {"name": "cod_mpio", "dataType": "string"},
+        {"name": "nombre_mpio", "dataType": "string"},
+        {"name": "cod_depto", "dataType": "string"},
+        {"name": "nombre_depto", "dataType": "string"},
+        {"name": "tipo_hub_logistico", "dataType": "string"}
+      ]
+    },
+    {
+      "name": "Fact_Produccion_EVA",
+      "description": "Hechos de producción agrícola municipal y semestral evaluados por MinAgricultura / UPRA.",
+      "columns": [
+        {"name": "id_tiempo", "dataType": "int64"},
+        {"name": "cod_mpio", "dataType": "string"},
+        {"name": "cod_variedad", "dataType": "string"},
+        {"name": "area_sembrada_ha", "dataType": "double"},
+        {"name": "area_cosechada_ha", "dataType": "double"},
+        {"name": "produccion_ton", "dataType": "double"},
+        {"name": "rendimiento_ton_ha", "dataType": "double"},
+        {"name": "tasa_perdida_cosecha_pct", "dataType": "double"},
+        {"name": "produccion_per_capita_nacional_kg", "dataType": "double"}
+      ]
+    },
+    {
+      "name": "Fact_Abastecimiento_SIPSA",
+      "description": "Hechos de volumen de abastecimiento mensual en centrales mayoristas (DANE SIPSA).",
+      "columns": [
+        {"name": "id_tiempo", "dataType": "int64"},
+        {"name": "id_mercado", "dataType": "int64"},
+        {"name": "cod_variedad", "dataType": "string"},
+        {"name": "volumen_ingreso_ton", "dataType": "double"},
+        {"name": "indice_estacional_oferta_ieo", "dataType": "double"},
+        {"name": "consumo_mayorista_per_capita_kg", "dataType": "double"}
+      ]
+    },
+    {
+      "name": "Fact_Precios_SIPSA",
+      "description": "Hechos de cotizaciones de precios mayoristas por kilo (DANE SIPSA).",
+      "columns": [
+        {"name": "id_tiempo", "dataType": "int64"},
+        {"name": "id_mercado", "dataType": "int64"},
+        {"name": "cod_variedad", "dataType": "string"},
+        {"name": "precio_prom_kg", "dataType": "double"},
+        {"name": "precio_min_kg", "dataType": "double"},
+        {"name": "precio_max_kg", "dataType": "double"},
+        {"name": "spread_precios_kg", "dataType": "double"},
+        {"name": "num_transacciones", "dataType": "int64"},
+        {"name": "indice_estacional_precio_iep", "dataType": "double"}
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "name": "Rel_FactEVA_DimTiempo",
+      "fromTable": "Fact_Produccion_EVA",
+      "fromColumn": "id_tiempo",
+      "toTable": "Dim_Tiempo",
+      "toColumn": "id_tiempo",
+      "crossFilteringBehavior": "oneDirection"
+    },
+    {
+      "name": "Rel_FactEVA_DimGeografia",
+      "fromTable": "Fact_Produccion_EVA",
+      "fromColumn": "cod_mpio",
+      "toTable": "Dim_Geografia",
+      "toColumn": "cod_mpio",
+      "crossFilteringBehavior": "oneDirection"
+    },
+    {
+      "name": "Rel_FactEVA_DimVariedad",
+      "fromTable": "Fact_Produccion_EVA",
+      "fromColumn": "cod_variedad",
+      "toTable": "Dim_Variedad",
+      "toColumn": "cod_variedad",
+      "crossFilteringBehavior": "oneDirection"
+    },
+    {
+      "name": "Rel_FactAbast_DimTiempo",
+      "fromTable": "Fact_Abastecimiento_SIPSA",
+      "fromColumn": "id_tiempo",
+      "toTable": "Dim_Tiempo",
+      "toColumn": "id_tiempo",
+      "crossFilteringBehavior": "oneDirection"
+    },
+    {
+      "name": "Rel_FactAbast_DimMercado",
+      "fromTable": "Fact_Abastecimiento_SIPSA",
+      "fromColumn": "id_mercado",
+      "toTable": "Dim_Mercado",
+      "toColumn": "id_mercado",
+      "crossFilteringBehavior": "oneDirection"
+    },
+    {
+      "name": "Rel_FactAbast_DimVariedad",
+      "fromTable": "Fact_Abastecimiento_SIPSA",
+      "fromColumn": "cod_variedad",
+      "toTable": "Dim_Variedad",
+      "toColumn": "cod_variedad",
+      "crossFilteringBehavior": "oneDirection"
+    },
+    {
+      "name": "Rel_FactPrecios_DimTiempo",
+      "fromTable": "Fact_Precios_SIPSA",
+      "fromColumn": "id_tiempo",
+      "toTable": "Dim_Tiempo",
+      "toColumn": "id_tiempo",
+      "crossFilteringBehavior": "oneDirection"
+    },
+    {
+      "name": "Rel_FactPrecios_DimMercado",
+      "fromTable": "Fact_Precios_SIPSA",
+      "fromColumn": "id_mercado",
+      "toTable": "Dim_Mercado",
+      "toColumn": "id_mercado",
+      "crossFilteringBehavior": "oneDirection"
+    },
+    {
+      "name": "Rel_FactPrecios_DimVariedad",
+      "fromTable": "Fact_Precios_SIPSA",
+      "fromColumn": "cod_variedad",
+      "toTable": "Dim_Variedad",
+      "toColumn": "cod_variedad",
+      "crossFilteringBehavior": "oneDirection"
+    },
+    {
+      "name": "Rel_DimMercado_DimGeografia",
+      "fromTable": "Dim_Mercado",
+      "fromColumn": "cod_mpio",
+      "toTable": "Dim_Geografia",
+      "toColumn": "cod_mpio",
+      "crossFilteringBehavior": "oneDirection"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+// ==============================================================================
+// SCRIPT DE CARGA AUTOMÁTICA DE MEDIDAS (VISTA DE CONSULTAS DAX - POWER BI)
+// ==============================================================================
+// INSTRUCCIONES EN POWER BI DESKTOP:
+// 1. En la barra lateral izquierda de Power BI, haz clic en el 4° icono: "Vista de consultas DAX" (icono con las letras DAX).
+// 2. Borra lo que haya en la pantalla y PEGA todo este código completo.
+// 3. Arriba del código aparecerá un enlace o botón amarillo que dice:
+//    "Actualizar modelo con cambios" (Update model with changes).
+// 4. Haz clic en "Actualizar modelo con cambios".
+// ¡Y Power BI creará TODAS las medidas automáticamente en un segundo!
+// ==============================================================================
+
+DEFINE
+    // --------------------------------------------------------------------------
+    // CARPETA: 01_KPIs
+    // --------------------------------------------------------------------------
+    MEASURE Fact_Produccion_EVA[Producción Total Ton] = 
+        SUM(Fact_Produccion_EVA[produccion_ton])
+
+    MEASURE Fact_Produccion_EVA[Área Sembrada Total Ha] = 
+        SUM(Fact_Produccion_EVA[area_sembrada_ha])
+
+    MEASURE Fact_Produccion_EVA[Área Cosechada Total Ha] = 
+        SUM(Fact_Produccion_EVA[area_cosechada_ha])
+
+    MEASURE Fact_Produccion_EVA[Rendimiento Promedio Ton_Ha] = 
+        DIVIDE(
+            SUM(Fact_Produccion_EVA[produccion_ton]),
+            SUM(Fact_Produccion_EVA[area_cosechada_ha]),
+            0
+        )
+
+    MEASURE Fact_Abastecimiento_SIPSA[Abastecimiento Mayorista Total Ton] = 
+        SUM(Fact_Abastecimiento_SIPSA[volumen_ingreso_ton])
+
+    MEASURE Fact_Precios_SIPSA[Precio Promedio Kg] = 
+        AVERAGE(Fact_Precios_SIPSA[precio_prom_kg])
+
+    // --------------------------------------------------------------------------
+    // CARPETA: 02_Time_Intelligence
+    // --------------------------------------------------------------------------
+    MEASURE Fact_Produccion_EVA[Producción Año Anterior (PY)] = 
+        CALCULATE(
+            SUM(Fact_Produccion_EVA[produccion_ton]),
+            SAMEPERIODLASTYEAR(Dim_Tiempo[fecha])
+        )
+
+    MEASURE Fact_Produccion_EVA[Variación Interanual Producción YoY %] = 
+        VAR ProdActual = SUM(Fact_Produccion_EVA[produccion_ton])
+        VAR ProdPY = CALCULATE(SUM(Fact_Produccion_EVA[produccion_ton]), SAMEPERIODLASTYEAR(Dim_Tiempo[fecha]))
+        RETURN
+        DIVIDE(ProdActual - ProdPY, ProdPY, 0)
+
+    MEASURE Fact_Precios_SIPSA[Precio Año Anterior (PY)] = 
+        CALCULATE(
+            AVERAGE(Fact_Precios_SIPSA[precio_prom_kg]),
+            SAMEPERIODLASTYEAR(Dim_Tiempo[fecha])
+        )
+
+    MEASURE Fact_Precios_SIPSA[Inflación Interanual Precio YoY %] = 
+        VAR PrecioActual = AVERAGE(Fact_Precios_SIPSA[precio_prom_kg])
+        VAR PrecioPY = CALCULATE(AVERAGE(Fact_Precios_SIPSA[precio_prom_kg]), SAMEPERIODLASTYEAR(Dim_Tiempo[fecha]))
+        RETURN
+        DIVIDE(PrecioActual - PrecioPY, PrecioPY, 0)
+
+    // --------------------------------------------------------------------------
+    // CARPETA: 03_Volatilidad
+    // --------------------------------------------------------------------------
+    MEASURE Fact_Precios_SIPSA[Desviación Estándar Precios] = 
+        STDEV.P(Fact_Precios_SIPSA[precio_prom_kg])
+
+    MEASURE Fact_Precios_SIPSA[Coeficiente Variación Precio CV%] = 
+        DIVIDE(
+            STDEV.P(Fact_Precios_SIPSA[precio_prom_kg]),
+            AVERAGE(Fact_Precios_SIPSA[precio_prom_kg]),
+            0
+        )
+
+    MEASURE Fact_Precios_SIPSA[Semáforo de Volatilidad] = 
+        VAR CV = DIVIDE(STDEV.P(Fact_Precios_SIPSA[precio_prom_kg]), AVERAGE(Fact_Precios_SIPSA[precio_prom_kg]), 0)
+        RETURN
+        SWITCH(
+            TRUE(),
+            CV >= 0.35, "🔴 Alta Volatilidad (>35%)",
+            CV >= 0.20, "🟡 Moderada (20%-35%)",
+            "🟢 Baja y Estable (<20%)"
+        )
+
+    // --------------------------------------------------------------------------
+    // CARPETA: 04_Estacionalidad
+    // --------------------------------------------------------------------------
+    MEASURE Fact_Abastecimiento_SIPSA[IVE Abastecimiento Promedio] = 
+        AVERAGE(Fact_Abastecimiento_SIPSA[indice_estacional_oferta_ieo])
+
+    MEASURE Fact_Precios_SIPSA[IVE Precio Promedio] = 
+        AVERAGE(Fact_Precios_SIPSA[indice_estacional_precio_iep])
+
+EVALUATE
+    ROW(
+        "Producción Total Ton", [Producción Total Ton],
+        "Rendimiento Ton/Ha", [Rendimiento Promedio Ton_Ha],
+        "Abastecimiento Ton", [Abastecimiento Mayorista Total Ton],
+        "Precio Promedio Kg", [Precio Promedio Kg]
+    )
