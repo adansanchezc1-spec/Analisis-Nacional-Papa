@@ -1,4 +1,9 @@
+import json
+from pathlib import Path
 
+root = Path(r"c:\Users\ADAN\OneDrive\Documentos\analisispapamercadoorlando")
+
+html_template = """
 <div id="pbi-dashboard-container" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f1f5f9; padding: 18px; border-radius: 12px; border: 2px solid #0f172a; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); color: #0f172a; max-width: 100%; margin: 15px 0;">
 
   <!-- TOP HEADER RIBBON (POWER BI STYLE) -->
@@ -939,3 +944,9 @@
 
 })();
 </script>
+"""
+
+with open(root / "docs/assets/powerbi_dashboard_template.html", "w", encoding="utf-8") as f:
+    f.write(html_template)
+
+print("Saved updated template in docs/assets/powerbi_dashboard_template.html successfully!")
