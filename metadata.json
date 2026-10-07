@@ -1,13 +1,13 @@
 {
   "project": "analisispapamercadoorlando",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "pdco_phase": "DEVELOPMENT",
   "active_skill": "03-development",
-  "sdlc_stage": "repository_initialized",
+  "sdlc_stage": "implementation_eva_multisource",
   "methodology": "CRISP-DM (7 Etapas: Ingestion, EDA, Validation, Cleaning, Features, Model, Visualization) & Marco PDCO",
   "domain": "Analisis de Mercado Agropecuario - Papa en Colombia (2019-2025)",
   "architecture_style": "Clean Architecture + Medallion Data Pipeline (RAW -> CLEANED -> FEATURES -> CURATED)",
-  "dataset_strategy": "Dataset Unico SIPSA Nacional con dimensionalidad temporal MENSUAL (YYYY-MM), granularidad espacial DIVIPOLA e invariante estricta: Ningun precio nulo",
+  "dataset_strategy": "Dataset Unico SIPSA Nacional (YYYY-MM, DIVIPOLA, Cero Precios Nulos) + Dataset EVA Agropecuario MinAgricultura (2019-2025 Semestral, Criolla y Todas las Variedades) + Demografia DANE CNPV",
   "core_pillars": [
     "Analisis critico de oferta (produccion, zonas productoras, estacionalidad, periodos de produccion, produccion per-capita, granularidad)",
     "Analisis critico de demanda (consumo, segmentos, tendencias, demanda aparente, consumo per-capita, balance de autosuficiencia)",
@@ -30,8 +30,8 @@
     "gitignore_active": true,
     "raw_data_excluded_from_git": true,
     "clean_architecture_structure": true,
-    "notebooks_count": 7,
-    "tests_count": 6
+    "notebooks_count": 8,
+    "tests_count": 7
   },
   "artifacts": [
     "README.md",
@@ -55,12 +55,18 @@
     "docs/documentos_tecnicos_estadisticos/manual_wrangling_gobernanza.md",
     "docs/documentos_tecnicos_estadisticos/manual_anomalias.md",
     "docs/documentos_tecnicos_estadisticos/bateria_pruebas_estadisticas.md",
+    "src/infrastructure/readers/eva_reader.py",
+    "data/CLEANED/dataset_eva_agricola_nacional.parquet",
+    "data/CURATED/reportes_graficos/tablero_produccion_agricola_eva.png",
+    "data/GEO/colombia_departamentos.geojson",
+    "tests/test_eva.py",
     "notebooks/01_ingestion_dataset_unico.ipynb",
     "notebooks/02_analisis_exploratorio_eda.ipynb",
     "notebooks/03_validacion_reglas_negocio.ipynb",
     "notebooks/04_limpieza_y_gobernanza.ipynb",
     "notebooks/05_ingenieria_de_features.ipynb",
     "notebooks/06_modelado_e_inferencia_dual.ipynb",
-    "notebooks/07_visualizacion_y_tableros.ipynb"
+    "notebooks/07_visualizacion_y_tableros.ipynb",
+    "notebooks/08_reporte_final_ejecutivo.ipynb"
   ]
 }

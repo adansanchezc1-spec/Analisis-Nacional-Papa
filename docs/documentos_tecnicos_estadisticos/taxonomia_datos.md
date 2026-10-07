@@ -38,22 +38,28 @@ graph TD
 
 ### 2.1 Componente de Oferta (Producción, Zonas Productoras y Estacionalidad)
 
-| Categoría | Variable Analítica | Variable Original SIPSA | Escala / Tipo | Valores o Descripción |
+| Categoría | Variable Analítica | Variable Original Fuente | Escala / Tipo | Valores o Descripción |
 |-----------|--------------------|-------------------------|---------------|-----------------------|
-| **Producción Físico** | `volumen_ofertado_kg` | `Cant Kg` | Razón continua | Kilogramos brutos despachados hacia el mercado. |
-| **Producción Agregada**| `volumen_ofertado_ton`| Derivada ($\text{Kg}/1000$) | Razón continua | Toneladas métricas despachadas. |
-| **Zonas: Departamento**| `depto_origen` | `Departamento Proc.` | Nominal | Nombre del departamento productor (Cundinamarca, Boyacá, Nariño, Antioquia, Santander, etc.). |
-| **Zonas: Código Depto**| `cod_depto_origen` | `Cod. Depto Proc.` | Nominal / Código | Código oficial DANE (ej. 15 = Boyacá, 25 = Cundinamarca, 52 = Nariño). |
-| **Zonas: Municipio** | `municipio_origen` | `Municipio Proc.` | Nominal | Municipio del predio o centro de acopio de origen. |
-| **Zonas: Código Mpio** | `cod_mpio_origen` | `Cod. Municipio Proc.`| Nominal / DIVIPOLA | Código municipal DIVIPOLA de 5 dígitos. |
-| **Estacionalidad: Año** | `anio` | Derivada de fecha | Ordinal / Discreta | 2019, 2020, 2021, 2022, 2023, 2024, 2025. |
+| **Producción Finca (EVA)**| `produccion_eva_ton` | `Producción (t)` (EVA) | Razón continua | Toneladas métricas cosechadas directamente en campo. |
+| **Área Sembrada (EVA)** | `area_sembrada_ha` | `Área sembrada (ha)` (EVA) | Razón continua | Hectáreas sembradas en el municipio en el semestre. |
+| **Área Cosechada (EVA)**| `area_cosechada_ha` | `Área cosechada (ha)` (EVA)| Razón continua | Hectáreas efectivamente cosechadas. |
+| **Rendimiento (EVA)** | `rendimiento_ton_ha` | `Rendimiento (t/ha)` (EVA) | Razón continua | Eficiencia productiva de la tierra (t/ha cosechada). |
+| **Desagregación EVA** | `desagregacion_cultivo` | `Desagregación cultivo` | Nominal binaria | `Papa criolla` o `Papa todas las variedades`. |
+| **Periodo EVA** | `periodo_semestre_eva` | `Periodo` (EVA) | Ordinal semestral | Semestres agrícolas: `2019A` a `2025B`. |
+| **Abastecimiento (SIPSA)**| `volumen_ofertado_kg` | `Cant Kg` (SIPSA) | Razón continua | Kilogramos brutos despachados hacia centrales mayoristas. |
+| **Abastecimiento Agregado**| `volumen_ofertado_ton`| Derivada ($\text{Kg}/1000$) | Razón continua | Toneladas métricas que ingresan a mercados mayoristas. |
+| **Zonas: Departamento**| `depto_origen` | `Departamento` (EVA/SIPSA)| Nominal | Nombre del departamento productor (Boyacá, Cundinamarca, Nariño, Antioquia, Santander, etc.). |
+| **Zonas: Código Depto**| `cod_depto_origen` | `Cod. Depto` (EVA/SIPSA) | Nominal / DIVIPOLA | Código oficial DANE (2 dígitos con padding). |
+| **Zonas: Municipio** | `municipio_origen` | `Municipio` (EVA/SIPSA) | Nominal | Municipio del predio o centro de acopio de origen. |
+| **Zonas: Código Mpio** | `cod_mpio_origen` | `Cod. Municipio` (EVA/SIPSA)| Nominal / DIVIPOLA | Código municipal DIVIPOLA de 5 dígitos. |
+| **Estacionalidad: Año** | `anio` | Derivada de fecha / `Año`| Ordinal / Discreta | 2019, 2020, 2021, 2022, 2023, 2024, 2025. |
 | **Estacionalidad: Periodo** | `periodo_reporte` | Carpeta / Archivo | Ordinal | Semestre I/II (2019-2023) o Cuatrimestre I/II/III (2024-2025). |
 | **Estacionalidad: Mes** | `mes` | Derivada de fecha | Ordinal / Cíclica | 1 a 12 (Enero a Diciembre). Base para el Índice de Estacionalidad (IEO). |
 | **Estacionalidad: Semana**| `semana_anio` | Derivada de fecha | Discreta (1 a 52) | Semana del año para análisis de granularidad media y choques puntuales. |
 | **Estacionalidad: Fecha**| `fecha_encuesta` | `FechaEncuesta` | Temporal | Nivel diario atómico de levantamiento de encuesta en plaza. |
-| **Periodo de Producción**| `ciclo_agronomico` | Derivada de variedad | Nominal / Temporal | - **Ciclo Largo (Papa de año)**: 150–180 días (2 cosechas/año)<br>- **Ciclo Corto (Papa criolla)**: 105–120 días (3 cosechas/año) |
+| **Periodo de Producción**| `ciclo_agronomico` | `Ciclo del cultivo` (EVA)| Nominal / Temporal | - **Ciclo Largo (Papa de año)**: 150–180 días (2 cosechas/año)<br>- **Ciclo Corto (Papa criolla)**: 105–120 días (3 cosechas/año) |
 | **Índice Estacionalidad** | `indice_estacionalidad_oferta`| Derivada estadística | Razón porcentual | Valor base 100 por mes calendario para aislar picos y valles de cosecha. |
-| **Producción per-cápita** | `produccion_per_capita_kg` / `_ton` | Derivada (`VTO / Población`) | Razón continua | Masa producida por habitante al año (Nacional y Departamental). |
+| **Producción per-cápita** | `produccion_per_capita_kg` / `_ton` | Derivada (`Producción EVA / Población`) | Razón continua | Masa producida por habitante al año (Nacional y Departamental). |
 
 ---
 

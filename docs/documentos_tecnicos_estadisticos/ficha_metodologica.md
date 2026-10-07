@@ -51,19 +51,21 @@ Permite cuantificar la absorción real del mercado y el nivel de ingesta promedi
 
 #### FICHA 5: Producción per-cápita (Ton) (PPC_TON)
 - **Definición**: Toneladas de papa generadas u ofertadas por habitante en un territorio y periodo determinado. Mide la capacidad y vocación agroproductiva bruta del territorio.
+- **Fuente de Producción**: Evaluaciones Agropecuarias Municipales — EVA (MinAgricultura / UPRA 2019–2025).
+- **Fuente Demográfica**: Proyecciones de Población Nacional y Departamental DANE (Censo 2018).
 - **Fórmula de Cálculo**:
   - **A Nivel Nacional**:
-    $$\text{PPC\_TON}_{t} = \frac{\text{Volumen Total Producido / Ofertado (Ton)}_{t}}{\text{Población Total Colombia}_{t}}$$
+    $$\text{PPC\_TON}_{t} = \frac{\text{Producción Total EVA (Ton)}_{t}}{\text{Población Total Colombia}_{t}}$$
   - **A Nivel Departamental (Desagregado)**:
-    $$\text{PPC\_TON}_{d, t} = \frac{\text{Volumen Ofertado desde el Departamento } d \text{ (Ton)}_{t}}{\text{Población Residente en el Departamento } d_{t}}$$
+    $$\text{PPC\_TON}_{d, t} = \frac{\text{Producción Departamental EVA (Ton)}_{d, t}}{\text{Población Residente en el Departamento } d_{t}}$$
 - **Unidad de Medida**: Toneladas / habitante / año (Ton/hab/año).
-- **Periodicidad**: Anual.
+- **Periodicidad**: Anual y Semestral.
 - **Interpretación**: A escala departamental revela la hiper-especialización papera de departamentos como Boyacá, Cundinamarca o Nariño, cuya producción per cápita supera con creces su demanda local.
 
 #### FICHA 6: Producción per-cápita (Kg) (PPC_KG)
 - **Definición**: Masa física de papa en kilogramos producida por habitante al año.
 - **Fórmula de Cálculo**:
-  $$\text{PPC\_KG}_{t} = \text{PPC\_TON}_{t} \times 1,000 = \frac{\text{Volumen Ofertado (Kg)}_{t}}{\text{Población}_{t}}$$
+  $$\text{PPC\_KG}_{t} = \text{PPC\_TON}_{t} \times 1,000 = \frac{\text{Producción Total EVA (Kg)}_{t}}{\text{Población DANE}_{t}}$$
 - **Unidad de Medida**: Kilogramos / habitante / año (Kg/hab/año).
 - **Periodicidad**: Anual.
 - **Interpretación**: Permite la comparación directa en la misma escala métrica frente al Consumo per-cápita (`CPC_KG`).
@@ -79,6 +81,16 @@ Permite cuantificar la absorción real del mercado y el nivel de ingesta promedi
     $$\text{RAPC} = \left(\frac{\text{PPC\_KG}}{\text{CPC\_KG}}\right) \times 100\%$$
 - **Unidad de Medida**: Kilogramos/hab/año para el balance, y Porcentaje (%) para el ratio.
 - **Periodicidad**: Anual.
+
+#### FICHA 8: Rendimiento Agronómico por Hectárea (REND_EVA)
+- **Definición**: Productividad física de la tierra medida como las toneladas de papa cosechadas por cada hectárea cultivada.
+- **Fuente**: Evaluaciones Agropecuarias Municipales — EVA (UPRA 2019–2025).
+- **Fórmula de Cálculo**:
+  $$\text{REND\_EVA}_{d, t} = \frac{\text{Producción Total EVA (t)}_{d, t}}{\text{Área Cosechada EVA (ha)}_{d, t}}$$
+- **Unidad de Medida**: Toneladas / hectárea (t/ha).
+- **Desagregación**: Por departamento, municipio y variedad comercial (`Papa criolla` vs. `Papa todas las variedades`).
+- **Periodicidad**: Semestral (`A` y `B`) y Anual.
+- **Interpretación**: Permite contrastar la frontera de productividad entre variedades (criolla ~12-15 t/ha vs. variedades de año ~18-25 t/ha) y zonas agrícolas.
 
 ---
 

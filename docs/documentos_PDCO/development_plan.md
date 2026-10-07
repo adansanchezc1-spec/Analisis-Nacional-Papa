@@ -32,14 +32,15 @@ La implementación se apoya en una arquitectura dual:
 
 ## 2. Hitos y Entregables por Etapa CRISP-DM
 
-### Hito 1: Etapa de Ingestión (Ingestion) — Construcción del Dataset Único Mensual
-* **Objetivo**: Ingerir los 16 periodos crudos (archivos `.csv`, `.dta`, `.sav`, `.sas` entre 2019 y 2025) y compilar el **Dataset Único Nacional SIPSA** con dimensionalidad temporal agregada a nivel **MENSUAL** (`YYYY-MM-01`).
+### Hito 1: Etapa de Ingestión (Ingestion) — Construcción de Datasets Únicos (SIPSA y EVA)
+* **Objetivo**: Ingerir los 16 periodos crudos de SIPSA y la base agrícola EVA 2019–2025, compilando el **Dataset Único Nacional SIPSA** a nivel mensual y el **Dataset Canónico Agrícola EVA** a nivel semestral.
 * **Componentes en `src/`**:
   * `src/infrastructure/readers/factory.py`: Instanciación dinámica del lector según la extensión del archivo.
   * `src/infrastructure/readers/csv_reader.py`, `stata_reader.py`, `spss_reader.py`, `sas_reader.py`.
-  * `src/application/ingestion_service.py`: Fusión de lotes, armonización de esquemas (*schema drift*) y resampleo temporal a nivel mensual sumando volúmenes y promediando precios ponderados.
+  * `src/infrastructure/readers/eva_reader.py`: Lector especializado del libro Excel de EVA (`BasePagina`/`BaseSIPRA`).
+  * `src/application/ingestion_service.py`: Armonización de SIPSA mensual y extracción de los 5,574 registros de papa de EVA (`Papa todas las variedades` y `Papa criolla`).
 * **Cuaderno Asociado**: `notebooks/01_ingestion_dataset_unico.ipynb`.
-* **Entregable en Datos**: `data/RAW/` $\rightarrow$ Generación del dataset consolidado mensual en memoria y persistencia preliminar.
+* **Entregable en Datos**: `data/CLEANED/dataset_sipsa_mensual_nacional.parquet` y `data/CLEANED/dataset_eva_agricola_nacional.parquet`.
 
 ---
 

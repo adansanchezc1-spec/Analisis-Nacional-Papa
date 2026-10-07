@@ -47,11 +47,33 @@
 
 ### IND-OF-07: Producción per-cápita (PPC_TON / PPC_KG)
 - **Fórmula**: 
-  $$\text{PPC\_TON}_{t} = \frac{\text{VTO (Ton)}_{t}}{\text{Población}_{t}}, \quad \text{PPC\_KG}_{t} = \text{PPC\_TON}_{t} \times 1,000$$
+  $$\text{PPC\_TON}_{t} = \frac{\text{Producción EVA (Ton)}_{t}}{\text{Población DANE}_{t}}, \quad \text{PPC\_KG}_{t} = \text{PPC\_TON}_{t} \times 1,000$$
 - **Unidad**: Ton/hab/año y Kg/hab/año.
-- **Periodicidad**: Anual.
-- **Desagregación**: Nacional y Departamental de Origen.
+- **Periodicidad**: Anual y Semestral.
+- **Desagregación**: Nacional, Departamental y Municipal.
 - **Objetivo**: Cuantificar la masa física de papa generada por habitante. A nivel departamental mide la vocación exportadora y especialización de cuencas como Boyacá, Cundinamarca y Nariño.
+
+### IND-OF-08: Rendimiento Agrícola Promedio en Campo (REND_EVA)
+- **Fórmula**: 
+  $$\text{REND\_EVA}_{d, t} = \frac{\text{Producción EVA (t)}_{d, t}}{\text{Área Cosechada EVA (ha)}_{d, t}}$$
+- **Unidad**: Toneladas por hectárea (t/ha).
+- **Periodicidad**: Semestral (`A` y `B`) y Anual.
+- **Desagregación**: Por departamento, municipio y variedad (`Papa criolla` vs. `Papa todas las variedades`).
+- **Objetivo**: Medir la productividad física de la tierra y diagnosticar brechas tecnológicas regionales.
+
+### IND-OF-09: Tasa de Pérdida / Brecha de Cosecha (TPC_EVA)
+- **Fórmula**: 
+  $$\text{TPC\_EVA}_{d, t} = \left(1 - \frac{\text{Área Cosechada (ha)}_{d, t}}{\text{Área Sembrada (ha)}_{d, t}}\right) \times 100\%$$
+- **Unidad**: Porcentaje (%).
+- **Periodicidad**: Semestral y Anual.
+- **Objetivo**: Cuantificar la superficie perdida por contingencias fitosanitarias, heladas, sequías o inviernos.
+
+### IND-OF-10: Coeficiente de Transición Campo a Central Mayorista (CTCM)
+- **Fórmula**: 
+  $$\text{CTCM}_{t} = \frac{\text{Abastecimiento Mayorista SIPSA (t)}_{t}}{\text{Producción Primaria EVA (t)}_{t}} \times 100\%$$
+- **Unidad**: Porcentaje (%).
+- **Periodicidad**: Anual.
+- **Objetivo**: Medir el porcentaje de la cosecha de campo que ingresa a las grandes centrales de abasto frente a los canales directos locales, autoconsumo e industria rural.
 
 ---
 

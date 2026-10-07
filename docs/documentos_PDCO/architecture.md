@@ -34,35 +34,38 @@ La separación de responsabilidades se garantiza mediante 4 capas concéntricas:
 
 ---
 
-## 2. Arquitectura del Dataset Único Nacional SIPSA (Dimensionalidad y Granularidad)
+## 2. Arquitectura de Datos Medallion y Datasets Maestros
 
-El sistema centraliza las operaciones de análisis en un **único dataset maestro** consolidado:
+El sistema centraliza las operaciones analíticas en dos datasets maestros saneados en la capa *Silver* y paneles integrados en la capa *Gold*:
 
 ```
-data/CLEANED/dataset_sipsa_mensual_nacional.parquet  (Capa Intermedia Saneada)
-data/FEATURES/dataset_sipsa_panel_features.parquet   (Capa con Métricas y Per Cápita)
+data/CLEANED/dataset_sipsa_mensual_nacional.parquet  (Capa Silver: Abastecimiento y Precios)
+data/CLEANED/dataset_eva_agricola_nacional.parquet   (Capa Silver: Producción Primaria y Rendimientos)
+data/FEATURES/dataset_sipsa_features.parquet         (Capa Gold: Métricas de Mercado, Lags y Per Cápita)
 ```
 
 ```mermaid
 graph TD
-    subgraph Fuentes Dispersas 2019-2025
-        F1["2019-I a 2021-I (Semestrales CSV)"]
-        F2["2021-II a 2023-I (Cuatrimestrales DTA/SAV)"]
-        F3["2023-II a 2025 (Semestrales SAS/CSV)"]
+    subgraph Fuentes Primarias RAW
+        F1["SIPSA 2019-2025\n16 periodos CSV/DTA/SAV/SAS"]
+        F2["EVA 2019-2025\n14 semestres XLSX"]
+        F3["DANE Demografía\nProyecciones de Población"]
     end
 
-    subgraph Proceso de Unificación y Estandarización
-        HARMON["Harmonizer & Resampler Mensual\n(Agregación a YYYY-MM-01)"]
+    subgraph Capa CLEANED (Silver)
+        S_SIPSA["Dataset Único SIPSA (Mensual)\nPrecios $/kg y Toneladas Abastecidas"]
+        S_EVA["Dataset EVA Agrícola (Semestral)\nÁreas (ha), Toneladas y Rendimiento"]
     end
 
-    subgraph Dataset Único Consolidado
-        SINGLE["DATASET ÚNICO SIPSA MENSUAL\n• Dimensión Principal: TIEMPO (Mensual continuo)\n• Granularidad: ESPACIO (DIVIPOLA Depto/Mpio)\n• Columnas Objetivo: Precios y Volúmenes (Sin Nulos)"]
+    subgraph Capa FEATURES (Gold)
+        GOLD["Panel Integrado de Tres Pilares\n• Oferta Campo: Rendimientos, Áreas, Producción EVA\n• Demanda Urbana: Ingreso Plazas, Consumo Per Cápita SIPSA\n• Precios: Estacionalidad IEP/IEO, Elasticidad y Volatilidad"]
     end
 
-    F1 --> HARMON
-    F2 --> HARMON
-    F3 --> HARMON
-    HARMON --> SINGLE
+    F1 --> S_SIPSA
+    F2 --> S_EVA
+    S_SIPSA --> GOLD
+    S_EVA --> GOLD
+    F3 --> GOLD
 ```
 
 ### 2.1 Especificaciones de la Estructura Dimensional:

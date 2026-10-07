@@ -28,18 +28,18 @@ Para garantizar la máxima integridad, trazabilidad y rigor analítico, el manej
 ### Arquitectura de Linaje de Datos (Medallion Pattern)
 ```mermaid
 flowchart LR
-    RAW["1. RAW (Bronze)\n• Archivos originales intactos\n• CSVs, DTAs, SAVs de SIPSA\n• Solo lectura / Inmutable"]
+    RAW["1. RAW (Bronze)\n• Archivos originales intactos\n• CSVs, DTAs, SAVs de SIPSA\n• XLSX de EVA (MinAgricultura)\n• XLSX de Demografía (DANE)\n• Solo lectura / Inmutable"]
     
-    --> SILVER["2. SILVER (Curada / Limpia)\n• Esquema canónico unificado\n• Filtro exclusivo de Papas\n• Limpieza de ' y formatos de miles\n• Normalización léxica y DIVIPOLA"]
+    --> SILVER["2. SILVER (Curada / Limpia)\n• Dataset Único SIPSA (Mensual)\n• Dataset EVA Agrícola (Semestral)\n• Filtro exclusivo de Papas\n• Normalización léxica y DIVIPOLA"]
     
-    --> GOLD["3. GOLD (Analítica / Modelos)\n• Tablas pivote y agregaciones\n• Series de tiempo mensuales\n• Matrices de flujos Origen-Destino\n• Tablas de Indicadores y KPIs"]
+    --> GOLD["3. GOLD (Analítica / Modelos)\n• Panel Multidimensional Integrado\n• Series de tiempo mensuales\n• Contrastes Paramétricos / No Paramétricos\n• Tableros Ejecutivos 300 DPI"]
 ```
 
 ---
 
 ## 2. Manual de Formateo y Estandarización Léxica
 
-### 2.1 Estandarización de Variedades de Papa
+### 2.1 Estandarización de Variedades de Papa (SIPSA Mayorista)
 Los registros crudos presentan inconsistencias tipográficas entre periodos. Se aplica un **Diccionario de Mapeo Canónico**:
 
 | Texto Crudo en SIPSA | Denominación Canónica Estandarizada | Familia / Segmento |
@@ -58,6 +58,19 @@ Los registros crudos presentan inconsistencias tipográficas entre periodos. Se 
 | `Cali, Cavasa`, `Cavasa` | **Cavasa** | Cali (Valle) |
 | `Medellín, Central Mayorista de Antioquia`, `Itagüí, Mayorista` | **Central Mayorista de Antioquia** | Medellín (Antioquia) |
 | `Armenia, Mercar`, `Mercar` | **Mercar** | Armenia (Quindío) |
+
+### 2.3 Normalización y Estandarización del Dataset Agrícola EVA
+En el libro de Evaluaciones Agropecuarias Municipales (`BasePagina` / `BaseSIPRA`), se aplica el siguiente protocolo:
+1. **Filtro Estricto de Cultivo**: `Cultivo == 'Papa'`.
+2. **Estandarización de Categorías**:
+   * `Papa todas las variedades` $\rightarrow$ `PAPA TODAS LAS VARIEDADES` (Papas de año / ciclo largo).
+   * `Papa criolla` $\rightarrow$ `PAPA CRIOLLA` (Variedad amarilla diploide / ciclo corto).
+3. **Casteo Numérico y Validación DAMA-BOK**:
+   * `Área sembrada (ha)`, `Área cosechada (ha)`, `Producción (t)`, `Rendimiento (t/ha)` convertidos a `Float64`.
+   * Regla de consistencia física: `Área Cosechada <= Área Sembrada` y `Rendimiento = Producción / Área Cosechada`.
+4. **Armonización DIVIPOLA**:
+   * `Código Dane departamento` con padding a 2 dígitos (`str.zfill(2)`).
+   * `Código Dane municipio` con padding a 5 dígitos (`str.zfill(5)`).
 | `Pereira, Mercasa` | **Mercasa** | Pereira (Risaralda) |
 | `Bucaramanga, Centroabastos` | **Centroabastos** | Bucaramanga (Santander) |
 

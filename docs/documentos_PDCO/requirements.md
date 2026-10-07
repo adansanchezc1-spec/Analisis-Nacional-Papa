@@ -83,9 +83,11 @@ A partir de los 16 periodos crudos (archivos semestrales y cuatrimestrales en fo
   * Intervalos de confianza no paramétricos Bootstrap BCa (Bias-Corrected and Accelerated) al 95% con $B \ge 2,000$ réplicas.
 * **RF-021 [Persistencia en Capa CURATED]**: Las tablas con estadísticos, valores $p$, grados de libertad e intervalos deben guardarse en `data/CURATED/`.
 
-### Etapa 7: Visualización y Reportes Ejecutivos (Visualization)
-* **RF-022 [Generación de Tableros Gráficos de Alta Calidad]**: El sistema debe renderizar figuras en `matplotlib` y `seaborn` a 300 DPI: mapas Cullen y Frey, gráficos de cajas y bigotes comparativos anuales, curvas de estacionalidad mensual y matrices de calor de correlaciones.
-* **RF-023 [Notebooks con Celda de Instalación Idempotente]**: Todo notebook en `notebooks/` debe iniciar con una celda obligatoria que ejecute `%pip install` de las librerías necesarias antes de cualquier importación.
+### Requerimientos de Producción Primaria y Oferta Agrícola (EVA)
+* **RF-024 [Ingestión de Evaluaciones Agropecuarias EVA 2019–2025]**: El sistema debe leer de forma automatizada y resiliente el libro de Evaluaciones Agropecuarias Municipales en `data/RAW/eva/20260526_BaseAgricola20192025.xlsx` (`BasePagina` / `BaseSIPRA`), manejando candados de lectura compartida de Windows (`FILE_SHARE_ALL`) y abstrayendo la ingesta hacia Parquet.
+* **RF-025 [Saneamiento y Filtrado de Variedades EVA]**: El sistema debe aislar estrictamente `Cultivo == 'Papa'` excluyendo falsos positivos (Papaya, Malanga, Papayuela), y clasificar los 5,574 registros en sus dos categorías maestras: `PAPA TODAS LAS VARIEDADES` (3,869 registros) y `PAPA CRIOLLA` (1,705 registros).
+* **RF-026 [Generación de Dataset Canónico EVA Parquet]**: El sistema debe compilar los datos en `data/CLEANED/dataset_eva_agricola_nacional.parquet` con códigos DIVIPOLA estandarizados a 2 y 5 dígitos, auditando que `Área Cosechada <= Área Sembrada` y `Rendimiento = Producción / Área Cosechada`.
+* **RF-027 [Integración Multidimensional EVA-SIPSA-DANE]**: El sistema debe calcular en la capa de Features la Producción Primaria Oficial Per Cápita (cruzada con proyecciones DANE) y estimar el Coeficiente de Transición Campo a Central Mayorista (Volumen SIPSA / Producción EVA).
 
 ---
 

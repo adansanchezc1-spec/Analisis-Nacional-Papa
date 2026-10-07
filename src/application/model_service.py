@@ -78,8 +78,8 @@ class ModelService:
             }
 
         return {
-            "prueba_levene": {"estadistico_W": float(stat_levene), "p_valor": float(p_levene), "homocedastico": p_levene > 0.05},
-            "anova_clasico": {"estadistico_F": float(stat_anova), "p_valor": float(p_anova), "diferencia_significativa": p_anova < 0.05},
+            "prueba_levene": {"estadistico_W": float(stat_levene), "p_valor": float(p_levene), "homocedastico": bool(p_levene > 0.05)},
+            "anova_clasico": {"estadistico_F": float(stat_anova), "p_valor": float(p_anova), "diferencia_significativa": bool(p_anova < 0.05)},
             "anova_welch": {"estadistico_F_welch": float(stat_welch), "p_valor": float(p_welch), "df_denominador": float(df_welch_den)},
             "intervalos_t_student_95": ic_t_student
         }
@@ -174,8 +174,8 @@ class ModelService:
             }
 
         return {
-            "prueba_fligner_killeen": {"estadistico_chi2": float(stat_fligner), "p_valor": float(p_fligner), "homogeneo": p_fligner > 0.05},
-            "kruskal_wallis": {"estadistico_H": float(stat_kw), "p_valor": float(p_kw), "diferencia_significativa": p_kw < 0.05},
+            "prueba_fligner_killeen": {"estadistico_chi2": float(stat_fligner), "p_valor": float(p_fligner), "homogeneo": bool(p_fligner > 0.05)},
+            "kruskal_wallis": {"estadistico_H": float(stat_kw), "p_valor": float(p_kw), "diferencia_significativa": bool(p_kw < 0.05)},
             "intervalos_bootstrap_bca_95": ic_bootstrap
         }
 

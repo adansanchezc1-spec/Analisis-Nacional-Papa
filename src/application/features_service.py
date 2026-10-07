@@ -128,3 +128,29 @@ class FeaturesService:
         ParquetWriter.write(self.df, out_parquet)
 
         return self.df
+
+    @classmethod
+    def acoplar_eva_con_demografia(cls, df_eva: pd.DataFrame, output_dir=FEATURES_DIR) -> pd.DataFrame:
+        """
+        Enriquece el dataset EVA con la población DANE departamental y nacional,
+        calculando la producción per cápita oficial de campo (ton/hab y kg/hab).
+        """
+        df_eva_feat = df_eva.copy()
+
+        def obtener_pob(año, tipo="total"):
+            return cls.POBLACION_NACIONAL_DANE.get(int(año), {}).get(tipo, 51000000)
+
+        df_eva_feat["poblacion_nacional_total"] = df_eva_feat["año"].apply(lambda y: obtener_pob(y, "total"))
+        df_eva_feat["produccion_per_capita_nacional_kg"] = (
+            (df_eva_feat["produccion_ton"] * 1000.0) / df_eva_feat["poblacion_nacional_total"]
+        )
+        df_eva_feat["tasa_perdida_cosecha_pct"] = np.where(
+            df_eva_feat["area_sembrada_ha"] > 0,
+            np.clip((1.0 - (df_eva_feat["area_cosechada_ha"] / df_eva_feat["area_sembrada_ha"])) * 100.0, 0, 100),
+            0.0
+        )
+
+        out_parquet = output_dir / "dataset_eva_features.parquet"
+        ParquetWriter.write(df_eva_feat, out_parquet)
+        return df_eva_feat
+

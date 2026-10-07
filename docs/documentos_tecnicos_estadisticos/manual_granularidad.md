@@ -77,11 +77,20 @@ El SIPSA ofrece datos con marca temporal diaria, lo que permite navegar a travé
 ### 2.5 Nivel 5: Granularidad Plurianual y Anual
 - **Propósito**: Balances de masa macroeconómica y correlación con proyecciones poblacionales anuales del DANE para obtener el **Consumo per-cápita** y la **Producción per-cápita**.
 
+### 2.6 Nivel Semestral Agronómico de Campo: Evaluaciones Agropecuarias (EVA A y B)
+- **Estructura Oficial UPRA/MinAgricultura**:
+  - Campaña A (`YYYYA`): Siembras de inicio de año con cosecha principal en mitad de año (junio-agosto).
+  - Campaña B (`YYYYB`): Siembras de mitad de año con recolección en cierre de año (diciembre-febrero).
+- **Puente de Armonización Multifuente**:
+  - *Campo (EVA)*: Agregación semestral por municipio y departamento $\rightarrow$ Oferta Primaria.
+  - *Mercado Mayorista (SIPSA)*: Registro mensual continuo $\rightarrow$ Abastecimiento Urbano y Precios.
+  - *Demografía (DANE)*: Proyección anual de habitantes $\rightarrow$ Normalización Per Cápita.
+
 ---
 
 ## 3. Dimensión 2: Granularidad Agronómica y Fenológica
 
-La temporalidad de los datos del SIPSA responde directamente a los **ciclos biológicos de cultivo** de la planta de papa en el trópico andino:
+La temporalidad de los datos del SIPSA y de EVA responde directamente a los **ciclos biológicos de cultivo** de la planta de papa en el trópico andino:
 
 ```mermaid
 graph TD

@@ -50,3 +50,28 @@ def filtrar_y_auditar_precios_df(df: pd.DataFrame, col_precio: str = "precio_pro
     df_saneado = df[mascara_valida].copy()
 
     return df_saneado, n_nulos_o_invalidos
+
+
+def validar_invariantes_eva_df(df: pd.DataFrame) -> Tuple[pd.DataFrame, int]:
+    """
+    Valida las reglas de consistencia física para el dataset agrícola EVA:
+    - area_sembrada_ha >= 0 y area_cosechada_ha >= 0
+    - produccion_ton >= 0
+    - rendimiento_ton_ha >= 0
+    """
+    cols_requeridas = ["area_sembrada_ha", "area_cosechada_ha", "produccion_ton", "rendimiento_ton_ha"]
+    for c in cols_requeridas:
+        if c not in df.columns:
+            raise KeyError(f"Columna requerida {c} no encontrada en DataFrame EVA.")
+
+    mascara_valida = (
+        (df["area_sembrada_ha"] >= 0) &
+        (df["area_cosechada_ha"] >= 0) &
+        (df["produccion_ton"] >= 0) &
+        (df["rendimiento_ton_ha"] >= 0)
+    )
+    n_invalidos = int((~mascara_valida).sum())
+    df_valido = df[mascara_valida].copy()
+
+    return df_valido, n_invalidos
+

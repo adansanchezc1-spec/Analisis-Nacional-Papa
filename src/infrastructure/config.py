@@ -13,15 +13,24 @@ DATA_DIR = PROJECT_ROOT / "data"
 RAW_DIR = DATA_DIR / "RAW"
 RAW_SIPSA_DIR = RAW_DIR / "sipsa"
 RAW_DEMO_DIR = RAW_DIR / "demografía"
+RAW_EVA_DIR = RAW_DIR / "eva"
+EVA_RAW_FILE = RAW_EVA_DIR / "20260526_BaseAgricola20192025.xlsx"
 
 CLEANED_DIR = DATA_DIR / "CLEANED"
 FEATURES_DIR = DATA_DIR / "FEATURES"
 CURATED_DIR = DATA_DIR / "CURATED"
+GEO_DIR = DATA_DIR / "GEO"
+
+# Parquets Canónicos y Capas Cartográficas
+SIPSA_CLEANED_PARQUET = CLEANED_DIR / "dataset_sipsa_mensual_nacional.parquet"
+EVA_CLEANED_PARQUET = CLEANED_DIR / "dataset_eva_agricola_nacional.parquet"
+COLOMBIA_GEOJSON = GEO_DIR / "colombia_departamentos.geojson"
 
 # Asegurar existencia de directorios de salida
 CLEANED_DIR.mkdir(parents=True, exist_ok=True)
 FEATURES_DIR.mkdir(parents=True, exist_ok=True)
 CURATED_DIR.mkdir(parents=True, exist_ok=True)
+GEO_DIR.mkdir(parents=True, exist_ok=True)
 
 # Mapeo de Nombres de Columnas Canónicas (Esquema Unificado)
 CANONICAL_COLUMNS = [
@@ -53,6 +62,7 @@ COLUMN_RENAME_DICTIONARY = {
     "Cod. Depto Proc.": "cod_depto_crudo",
     "Código Departamento": "cod_depto_crudo",
     "Cod. Depto": "cod_depto_crudo",
+    "Divipola Depto Proc.": "cod_depto_crudo",
     "Departamento Proc.": "nombre_depto_crudo",
     "Departamento": "nombre_depto_crudo",
     # Municipios
@@ -60,12 +70,16 @@ COLUMN_RENAME_DICTIONARY = {
     " Código Municipio ": "cod_mpio_crudo",
     "Código Municipio": "cod_mpio_crudo",
     "Cod. Municipio": "cod_mpio_crudo",
+    "Divipola Municipio / ISO 3166-1 País Proc.": "cod_mpio_crudo",
+    " Divipola Municipio / ISO 3166-1 País Proc. ": "cod_mpio_crudo",
     "Municipio Proc.": "nombre_mpio_crudo",
     "Municipio": "nombre_mpio_crudo",
+    "Municipio de Colombia / País Proc.": "nombre_mpio_crudo",
     # Mercados
     "Fuente": "mercado_crudo",
     "\ufeffFuente": "mercado_crudo",
     "Cuidad, Mercado Mayorista": "mercado_crudo",
+    "Ciudad, Mercado Mayorista": "mercado_crudo",
     "Mercado": "mercado_crudo",
     # Alimentos / Variedades
     "Grupo": "grupo_crudo",
@@ -73,6 +87,7 @@ COLUMN_RENAME_DICTIONARY = {
     "Alimento": "alimento_crudo",
     # Cantidades y Precios
     "Cant Kg": "cantidad_kg_crudo",
+    " Cant Kg ": "cantidad_kg_crudo",
     "Cantidad": "cantidad_kg_crudo",
     "Precio Prom": "precio_prom_crudo",
     "Precio Min": "precio_min_crudo",

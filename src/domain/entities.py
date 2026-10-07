@@ -66,3 +66,33 @@ class QualityAuditReport:
     total_inconsistencias_divipola: int
     pct_completitud_precios: float
     fecha_auditoria: str
+
+
+@dataclass(frozen=True)
+class EvaRecord:
+    """
+    Registro oficial de producción agrícola primaria de Evaluaciones Agropecuarias (EVA).
+    Representa la producción en campo a nivel municipal y semestral.
+    """
+    codigo_depto: str          # Código DIVIPOLA departamento (2 dígitos)
+    departamento: str          # Nombre departamento
+    codigo_mpio: str           # Código DIVIPOLA municipio (5 dígitos)
+    municipio: str             # Nombre municipio
+    desagregacion_cultivo: str # 'PAPA TODAS LAS VARIEDADES' o 'PAPA CRIOLLA'
+    cultivo: str               # 'PAPA'
+    ciclo_cultivo: str         # 'Transitorio'
+    año: int                   # 2019 - 2025
+    periodo: str               # '2019A', '2019B', etc.
+    area_sembrada_ha: float    # Hectáreas sembradas (>= 0)
+    area_cosechada_ha: float   # Hectáreas cosechadas (0 <= area_cosechada <= area_sembrada)
+    produccion_ton: float      # Toneladas métricas producidas (>= 0)
+    rendimiento_ton_ha: float  # Rendimiento agronómico t/ha (>= 0)
+
+    def __post_init__(self):
+        if self.area_sembrada_ha < 0 or self.area_cosechada_ha < 0:
+            raise ValueError("Las áreas no pueden ser negativas.")
+        if self.produccion_ton < 0 or self.rendimiento_ton_ha < 0:
+            raise ValueError("Producción y rendimiento no pueden ser negativos.")
+        if self.desagregacion_cultivo not in {"PAPA TODAS LAS VARIEDADES", "PAPA CRIOLLA"}:
+            raise ValueError(f"Desagregación inválida: {self.desagregacion_cultivo}")
+

@@ -32,8 +32,24 @@ El repositorio contiene el histórico completo de abastecimiento mayorista de Co
 | **2025 - Cuatrimestre II**| `2025 (II cuatrimestre)/` | `2025 (II cuatrimestre).csv` | 85.06 MB | `SIPSA_A.DTA` (371.27 MB), `SIPSA_A.sav` (391.73 MB) |
 | **2025 - Cuatrimestre III**| `2025 (III cuatrimestre)/` | `2025 (III cuatrimestre).csv` | 87.31 MB | `iii_cuatrimestre_2025.DTA` (136.16 MB), `.sav` (153.91 MB), `.sas7bdat` (136.69 MB) |
 
+### 1.2 Fuente Agrícola Primaria de Campo: Evaluaciones Agropecuarias Municipales (EVA 2019 - 2025)
+
+En complemento al abastecimiento mayorista de SIPSA, el repositorio incorpora en `data/RAW/eva/` la base oficial de producción primaria agrícola de Colombia generada por el Ministerio de Agricultura y Desarrollo Rural (MADR) y la Unidad de Planificación Rural Agropecuaria (UPRA):
+
+| Atributo | Especificación Técnica Oficial |
+|---|---|
+| **Archivo Fuente** | `data/RAW/eva/20260526_BaseAgricola20192025.xlsx` |
+| **Tamaño en Disco** | 26.28 MB (Libro Excel OpenXML) |
+| **Entidad Emisora** | EVA - UPRA / Ministerio de Agricultura y Desarrollo Rural |
+| **Hojas del Libro** | 1. `BasePagina`: Estructura oficial con cabecera descriptiva en filas 1–8 y nombres de columnas en fila 9.<br>2. `BaseSIPRA`: Estructura tabular plana de ingesta directa. |
+| **Cobertura Temporal** | 7 años completos (2019 a 2025) divididos en **14 semestres continuos** (`2019A`, `2019B`, `2020A`, ..., `2025B`). |
+| **Universo de Registros Papa** | **5,574 registros municipales consolidados** correspondientes a `Cultivo == 'Papa'`. |
+| **Desagregación Varietal** | • **`Papa todas las variedades`**: 3,869 registros semestrales municipales.<br>• **`Papa criolla`**: 1,705 registros semestrales municipales. |
+| **Variables Agronómicas** | `Área sembrada (ha)`, `Área cosechada (ha)`, `Producción (t)`, `Rendimiento (t/ha)`. |
+| **Identificadores Espaciales** | `Código Dane departamento` (2 dígitos con padding) y `Código Dane municipio` (5 dígitos DIVIPOLA). |
+
 > [!NOTE]
-> **Total de datos crudos**: ~1.44 GB en archivos `.csv` comprimibles y ~2.6 GB en binarios analíticos (`.dta` y `.sav`), conformando una base consolidada superior a los **14 millones de registros transaccionales**.
+> **Total de datos crudos del proyecto**: ~1.44 GB en archivos `.csv` de SIPSA, ~2.6 GB en binarios analíticos (`.dta` y `.sav`), ~26.3 MB en producción agrícola primaria EVA y ~15 MB en proyecciones demográficas DANE, integrando una arquitectura de datos superior a **14 millones de microdatos transaccionales y de campo**.
 
 ---
 
@@ -136,13 +152,32 @@ flowchart TD
 
 ---
 
+### 5.2 Estrategia de Filtrado en el Dataset Agrícola EVA
+
+En el libro de Evaluaciones Agropecuarias Municipales (`BasePagina` / `BaseSIPRA`), existen 166 especies cultivadas en Colombia. Para aislar con exactitud la papa de campo:
+1. **Filtro Primario de Especie**: `df['Cultivo'] == 'Papa'` (o en `BaseSIPRA`: `df['especie'] == 'Papa'`).
+2. **Exclusión de Falsos Positivos**: El filtro excluye taxativamente:
+   * `Papaya` y sus variedades (Maradol, Hawaiana, Tainung: 1,336 registros).
+   * `Malanga, achín, yota, papa china, bore` (821 registros).
+   * `Papayuela - Babaco` (31 registros).
+3. **Población Efectiva**: Se obtienen exactamente **5,574 registros semestrales municipales** (100% papa verificada sin nulos).
+
+---
+
 ## 6. Inventario de Variedades Identificadas en los Datos Crudos
 
-Al escanear el subgrupo de papa en los microdatos históricos se identificaron las siguientes variedades comerciales activas:
-
+### 6.1 Variedades Comerciales en Abastecimiento Mayorista (SIPSA)
 1. **Papa Suprema**: Presente de forma continua en todos los periodos con gran volumen en plazas del Eje Cafetero, Valle y Bogotá.
 2. **Papa Capira / Diacol Capiro**: Registrada bajo diversas grafías (`Papa capira`, `Papa capiro`, `Papa diacol capiro`), liderando los envíos hacia la agroindustria y Antioquia.
 3. **Papa Pastusa / Parda Pastusa**: Variedad reina tradicional de consumo en fresco en Cundinamarca, Boyacá y Nariño.
 4. **Papa Criolla (Limpia y Sucia)**: Registrada bajo denominaciones comerciales diferenciadas por calidad de lavado.
 5. **Papa R-12 / Negra**: Frecuente en los despachos originados en Ipiales, Túquerres y Pasto.
 6. **Papa Superior / Única / Betina / Tuquerreña**: Variedades secundarias de alto valor para análisis de sustitución.
+
+### 6.2 Categorías Agronómicas Oficiales en Producción de Campo (EVA)
+1. **`Papa todas las variedades`** (3,869 registros semestrales / 69.4%):
+   * Agrupa las papas de año / ciclo largo (Pastusa, Capiro, Suprema, R-12, Rubí, etc.).
+   * Ciclo agronómico: Transitorio (150 a 180 días).
+2. **`Papa criolla`** (1,705 registros semestrales / 30.6%):
+   * Variedad nativa diploide (*Solanum phureja*), ciclo corto y alta rotación.
+   * Ciclo agronómico: Transitorio (105 a 120 días).

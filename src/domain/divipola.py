@@ -47,8 +47,8 @@ def normalizar_codigo_mpio(valor) -> Optional[str]:
 def validar_serie_divipola(serie: pd.Series, longitud: int = 5) -> pd.Series:
     """Aplica la normalización vectorizada sobre una columna de Pandas."""
     if longitud == 2:
-        return serie.apply(normalizar_codigo_depto)
+        return pd.Series([normalizar_codigo_depto(x) for x in serie], index=serie.index, dtype=object)
     elif longitud == 5:
-        return serie.apply(normalizar_codigo_mpio)
+        return pd.Series([normalizar_codigo_mpio(x) for x in serie], index=serie.index, dtype=object)
     else:
         raise ValueError("Longitud de DIVIPOLA soportada: 2 (Depto) o 5 (Municipio).")
