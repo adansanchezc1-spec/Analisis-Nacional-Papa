@@ -1,6 +1,6 @@
 {
   "project": "analisispapamercadoorlando",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "pdco_phase": "OPERATIONS",
   "active_skill": "03-development",
   "sdlc_stage": "powerbi_dimensional_dashboard",
@@ -87,6 +87,7 @@
     "notebooks/07_visualizacion_y_tableros.ipynb",
     "notebooks/08_reporte_final_ejecutivo.ipynb",
     "docs/report.ipynb",
+    "docs/report.html",
     "docs/assets/powerbi_dashboard_template.html"
   ]
 }
