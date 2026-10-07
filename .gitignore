@@ -1,0 +1,82 @@
+# ==============================================================================
+# GITIGNORE — Plataforma Analítica del Mercado de la Papa en Colombia
+# Estándar: Python, Data Science, Clean Architecture & CRISP-DM
+# ==============================================================================
+
+# Entornos virtuales
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Byte-compiled / optimizados de Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook Checkpoints y cachés
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+*-checkpoint.ipynb
+
+# Pruebas y Cobertura
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+
+# Entornos de desarrollo y configuración local
+.env
+.env.local
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos del Sistema Operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==============================================================================
+# GOBERNANZA DE DATOS (DAMA-BOK): EXCLUSIÓN DE ARCHIVOS MASIVOS (GIGABYTES)
+# ==============================================================================
+# Excluir datos crudos masivos (~4 GB) y binarios de encuestas
+data/RAW/sipsa/*
+data/RAW/demografía/*.xlsx
+
+# Excluir archivos pesados intermedios generados por el pipeline
+data/CLEANED/*.parquet
+data/CLEANED/*.csv
+data/FEATURES/*.parquet
+data/FEATURES/*.csv
+data/CURATED/*.parquet
+data/CURATED/*.csv
+
+# Pero permitir mantener la estructura de carpetas
+!data/CLEANED/.gitkeep
+!data/FEATURES/.gitkeep
+!data/CURATED/.gitkeep
+!data/CURATED/reportes_graficos/.gitkeep

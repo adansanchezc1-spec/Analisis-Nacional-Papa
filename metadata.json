@@ -1,0 +1,66 @@
+{
+  "project": "analisispapamercadoorlando",
+  "version": "2.4.0",
+  "pdco_phase": "DEVELOPMENT",
+  "active_skill": "03-development",
+  "sdlc_stage": "repository_initialized",
+  "methodology": "CRISP-DM (7 Etapas: Ingestion, EDA, Validation, Cleaning, Features, Model, Visualization) & Marco PDCO",
+  "domain": "Analisis de Mercado Agropecuario - Papa en Colombia (2019-2025)",
+  "architecture_style": "Clean Architecture + Medallion Data Pipeline (RAW -> CLEANED -> FEATURES -> CURATED)",
+  "dataset_strategy": "Dataset Unico SIPSA Nacional con dimensionalidad temporal MENSUAL (YYYY-MM), granularidad espacial DIVIPOLA e invariante estricta: Ningun precio nulo",
+  "core_pillars": [
+    "Analisis critico de oferta (produccion, zonas productoras, estacionalidad, periodos de produccion, produccion per-capita, granularidad)",
+    "Analisis critico de demanda (consumo, segmentos, tendencias, demanda aparente, consumo per-capita, balance de autosuficiencia)",
+    "Comportamiento de precios (variaciones temporales, factores influyentes, indice de estacionalidad de precios)"
+  ],
+  "disaggregation_dimensions": [
+    "Geografica (Nacional, Departamental, Municipal DIVIPOLA, Central Mayorista, Corredor Origen-Destino)",
+    "Producto (Grupo, Segmento Fresco vs Industrial vs Criolla, Variedad Comercial)",
+    "Temporal (Plurianual 2019-2025, Anual, Periodo DANE, Mensual Continuo)"
+  ],
+  "granularity_framework": "Temporal Mensual continua (YYYY-MM-01 agregando cuatrimestres/semestres/dias), ciclos fenologicos (180d vs 120d) y jerarquia espacial DIVIPOLA",
+  "processing_paradigms": {
+    "parametric": "Normalidad/Box-Cox/Log, Media, Desviacion Estandar, Levene/Bartlett, ANOVA/Welch, Tukey/Games-Howell, IC t-Student (95%)",
+    "non_parametric": "Distribution-Free, Mediana, IQR, MAD, Fligner-Killeen, Kruskal-Wallis, Dunn-FDR, Bootstrap BCa (95%, B=2,000)"
+  },
+  "governance_framework": "DAMA-BOK (Calidad de Datos, Limpieza Lexica, Invariante Cero Precios Nulos, Pivoteo, Linaje Medallion, Catalogo DIVIPOLA)",
+  "last_updated": "2026-10-06",
+  "repository_configuration": {
+    "git_initialized": true,
+    "gitignore_active": true,
+    "raw_data_excluded_from_git": true,
+    "clean_architecture_structure": true,
+    "notebooks_count": 7,
+    "tests_count": 6
+  },
+  "artifacts": [
+    "README.md",
+    ".gitignore",
+    "requirements.txt",
+    "docs/README.md",
+    "docs/documentos_PDCO/requirements.md",
+    "docs/documentos_PDCO/architecture.md",
+    "docs/documentos_PDCO/development_plan.md",
+    "docs/documentos_tecnicos_estadisticos/README.md",
+    "docs/documentos_tecnicos_estadisticos/proposito.md",
+    "docs/documentos_tecnicos_estadisticos/bateriapreguntas.md",
+    "docs/documentos_tecnicos_estadisticos/ficha_metodologica.md",
+    "docs/documentos_tecnicos_estadisticos/manual_granularidad.md",
+    "docs/documentos_tecnicos_estadisticos/bateriaindicadores.md",
+    "docs/documentos_tecnicos_estadisticos/diagrama_como.md",
+    "docs/documentos_tecnicos_estadisticos/taxonomia_datos.md",
+    "docs/documentos_tecnicos_estadisticos/catalogo_divipola.md",
+    "docs/documentos_tecnicos_estadisticos/plan_extraccion_demografia.md",
+    "docs/documentos_tecnicos_estadisticos/bateria_datos_crudos.md",
+    "docs/documentos_tecnicos_estadisticos/manual_wrangling_gobernanza.md",
+    "docs/documentos_tecnicos_estadisticos/manual_anomalias.md",
+    "docs/documentos_tecnicos_estadisticos/bateria_pruebas_estadisticas.md",
+    "notebooks/01_ingestion_dataset_unico.ipynb",
+    "notebooks/02_analisis_exploratorio_eda.ipynb",
+    "notebooks/03_validacion_reglas_negocio.ipynb",
+    "notebooks/04_limpieza_y_gobernanza.ipynb",
+    "notebooks/05_ingenieria_de_features.ipynb",
+    "notebooks/06_modelado_e_inferencia_dual.ipynb",
+    "notebooks/07_visualizacion_y_tableros.ipynb"
+  ]
+}
