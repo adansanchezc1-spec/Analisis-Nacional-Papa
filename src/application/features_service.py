@@ -102,12 +102,12 @@ class FeaturesService:
             mask_iqr = (grupo["precio_prom_kg"] < lim_inf) | (grupo["precio_prom_kg"] > lim_sup)
             df_feat.loc[grupo.index, "es_outlier_iqr"] = mask_iqr
 
-            # MAD
+            # MAD (Z-Score Modificado de Iglewicz & Hoaglin, umbral calibrado 3.0)
             mediana = np.median(precios)
             mad = stats.median_abs_deviation(precios)
             if mad > 0:
                 mod_z = np.abs(precios - mediana) / (1.4826 * mad)
-                mask_mad = mod_z > 3.5
+                mask_mad = mod_z > 3.0
                 df_feat.loc[grupo.index, "es_outlier_mad"] = mask_mad
 
         return df_feat

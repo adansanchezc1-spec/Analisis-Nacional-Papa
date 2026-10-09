@@ -1,6 +1,6 @@
 ﻿id_mercado,mercado_mayorista,cod_mpio,nombre_mpio,cod_depto,nombre_depto,tipo_hub_logistico
-1,"CALI, CAVASA",05001,MEDELLIN,05,ANTIOQUIA,Hub Metropolitano Estratégico
-2,"MEDELLIN, CENTRAL MAYORISTA DE ANTIOQUIA",05001,MEDELLIN,05,ANTIOQUIA,Hub Metropolitano Estratégico
+1,"CALI, CAVASA",05001,MEDELLIN,05,ANTIOQUIA,Hub Metropolitano Estrategico
+2,"MEDELLIN, CENTRAL MAYORISTA DE ANTIOQUIA",05001,MEDELLIN,05,ANTIOQUIA,Hub Metropolitano Estrategico
 3,"MONTERIA, MERCADO DEL SUR",05001,MEDELLIN,05,ANTIOQUIA,Central Mayorista Regional
 5,"MEDELLIN, PLAZA MINORISTA JOSE MARIA VILLA",05002,ABEJORRAL,05,ANTIOQUIA,Central Mayorista Regional
 13,"BARRANQUILLA, GRANABASTOS",05440,MARINILLA,05,ANTIOQUIA,Central Mayorista Regional
@@ -8,12 +8,12 @@
 18,"PEREIRA, MERCASA",05440,MARINILLA,05,ANTIOQUIA,Central Mayorista Regional
 19,"SINCELEJO, NUEVO MERCADO",05541,PENOL,05,ANTIOQUIA,Central Mayorista Regional
 37,"ARMENIA, MERCAR",11001,"BOGOTA, D.C.",11,"BOGOTA, D. C.",Central Mayorista Regional
-38,"BOGOTA, D.C., CORABASTOS",11001,"BOGOTA, D.C.",11,"BOGOTA, D. C.",Hub Metropolitano Estratégico
+38,"BOGOTA, D.C., CORABASTOS",11001,"BOGOTA, D.C.",11,"BOGOTA, D. C.",Hub Metropolitano Estrategico
 39,"BOGOTA, D.C., PALOQUEMAO",11001,"BOGOTA, D.C.",11,"BOGOTA, D. C.",Central Mayorista Regional
 40,"BUCARAMANGA, CENTROABASTOS",11001,"BOGOTA, D.C.",11,"BOGOTA, D. C.",Central Mayorista Regional
 42,"IBAGUE, PLAZA LA 21",11001,"BOGOTA, D.C.",11,"BOGOTA, D. C.",Central Mayorista Regional
 43,"MANIZALES, CENTRO GALERIAS",11001,"BOGOTA, D.C.",11,"BOGOTA, D. C.",Central Mayorista Regional
-46,"NEIVA, SURABASTOS",11001,"BOGOTA, D.C.",11,"BOGOTA, D. C.",Hub Metropolitano Estratégico
+46,"NEIVA, SURABASTOS",11001,"BOGOTA, D.C.",11,"BOGOTA, D. C.",Hub Metropolitano Estrategico
 48,"TUNJA, COMPLEJO DE SERVICIOS DEL SUR",11001,"BOGOTA, D.C.",11,"BOGOTA, D. C.",Central Mayorista Regional
 49,"VILLAVICENCIO, CAV",11001,"BOGOTA, D.C.",11,"BOGOTA, D. C.",Central Mayorista Regional
 50,"BARRANQUILLA, BARRANQUILLITA",15001,TUNJA,15,BOYACA,Central Mayorista Regional

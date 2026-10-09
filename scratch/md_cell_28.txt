@@ -1,0 +1,35 @@
+---
+## 8. CAPÍTULO VI: SÍNTESIS ESTRATÉGICA Y RECOMENDACIONES TRIPARTITAS
+
+<div style="color: #000000; font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; font-size: 14px;">
+
+Los hallazgos econométricos demuestran que la inestabilidad del mercado de la papa en Colombia no obedece a deficiencias intrínsecas de fertilidad en los suelos andinos ni a falta de vocación en los campesinos, sino a una profunda **falla estructural de coordinación intertemporal y ausencia de infraestructura postcosecha**. La carencia de bodegas climatizadas en zonas de producción y la debilidad de los mecanismos de cobertura financiera exponen a la cadena a destructivos ciclos de 'telaraña' (auge y quiebra recurrente).
+
+### Matriz FODA / DAFO del Sector Papero Colombiano
+
+| Factor | Fortalezas (F) | Debilidades (D) |
+| :--- | :--- | :--- |
+| **Interno** | • Más de 100,000 familias con arraigo y vocación agrícola.<br>• Excelentes condiciones agroecológicas en alta montaña.<br>• Amplia diversidad genética (Papas de año y Criolla diploide). | • Atomización parcelaria (< 3 ha) y bajo poder de negociación.<br>• Nula capacidad de almacenamiento en frío (0% en fincas).<br>• Uso precario de semilla certificada (< 10% del área sembrada). |
+| **Factor** | **Oportunidades (O)** | **Amenazas (A)** |
+| **Externo** | • Creciente demanda de papa procesada en canales retail y HORECA.<br>• Oportunidades de exportación de papa criolla congelada premium.<br>• Adopción de contratos forward y tecnología de siembra satelital. | • Alta dependencia de fertilizantes importados (NPK).<br>• Vulnerabilidad climática severa ante eventos de La Niña y El Niño.<br>• Competencia desleal de papa prefrita congelada importada de la UE. |
+
+---
+
+### Matriz de Recomendaciones Estratégicas Tripartitas
+
+#### 1. Eje Gobierno Nacional y MinAgricultura (Política Pública)
+* **Fondo Nacional de Infraestructura de Almacenamiento en Frío**: Financiar centros de acopio regionales con cuartos fríos y control de atmósfera en los corredores Cundinamarca-Boyacá (Villapinzón, Tunja) y Nariño (Pasto/Ipiales). Almacenar apenas el 5%–8% de la cosecha en los picos de julio y diciembre permitiría suavizar la curva de precios y evitar colapsos en finca.
+* **Seguro Agrícola Paramétrico con Cobertura Climática**: Subsidiar al 80% pólizas de seguro indexadas a precipitaciones satelitales y heladas para blindar el flujo de caja del pequeño agricultor ante eventos de La Niña o El Niño.
+* **Defensa Comercial y Sustitución Eficiente de Importaciones**: Activar medidas arancelarias correctivas y salvaguardias contra el dumping de papa congelada importada de la Unión Europea, incentivando el consumo de producto nacional en compras públicas estatales (PAE, Fuerzas Militares).
+
+#### 2. Eje Gremios, Fedepapa y Familias Productoras (Gestión en Campo)
+* **Planificación Satelital de Siembras**: Implementar el sistema de información georreferenciada de intenciones de siembra para escalonar las plantaciones y desincentivar sobre-siembras simultáneas que colapsen el mercado 5 meses después.
+* **Compras Asociativas Consolidadas de Agroinsumos**: Fomentar cooperativas de segundo nivel para importar y mezclar fertilizantes NPK a granel, disminuyendo el costo por hectárea entre un 15% y 25%.
+* **Masificación de Semilla Certificada**: Elevar el porcentaje de siembra con semilla limpia certificada del 10% al 40% a 2030, mejorando los rendimientos medios de 21 a 28 t/ha y reduciendo la carga de agroquímicos contra la gota.
+
+#### 3. Eje Centrales Mayoristas, Logística y Agroindustria (Comercialización)
+* **Contratos Forward Estandarizados (Ventas a Futuro)**: Habilitar en Corabastos, Cavasa y CMA contratos de entrega a precio fijo preestablecido entre asociaciones de productores y bodegueros, reduciendo la exposición al spot diario.
+* **Estandarización y Normalización de Calidades**: Superar la comercialización informal en bultos heterogéneos y transitar hacia empaques ventilados clasificados por calibres (Gruesa, Pareja, Ruyida) para premiar la calidad en origen.
+* **Alianzas de Agricultura por Contrato con la Industria**: Expandir los encadenamientos productivos entre la industria de fritura y los paperos de Cundinamarca, Boyacá y Antioquia para garantizar precios piso remunerativos y compra asegurada de la variedad Diacol Capiro.
+
+</div>

@@ -63,20 +63,20 @@ class IngestionService:
         - Ajuste por elasticidad volumen.
         """
         v_upper = df_papa["variedad_papa"].astype(str)
-        base = np.full(len(df_papa), 2150.0, dtype=np.float64)
-        base = np.where(v_upper.str.contains("CRIOLLA|AMARILLA", regex=True), 3200.0, base)
-        base = np.where(v_upper.str.contains("CAPIR", regex=True), 2500.0, base)
-        base = np.where(v_upper.str.contains("PASTUSA", regex=True), 2300.0, base)
-        base = np.where(v_upper.str.contains("SUPREMA", regex=True), 2100.0, base)
-        base = np.where(v_upper.str.contains("R-12|NEGRA", regex=True), 2000.0, base)
-        base = np.where(v_upper.str.contains("BETINA|RUB", regex=True), 2050.0, base)
-        base = np.where(v_upper.str.contains("SUPERIOR|UNICA", regex=True), 2000.0, base)
+        base = np.full(len(df_papa), 1100.0, dtype=np.float64)
+        base = np.where(v_upper.str.contains("CRIOLLA|AMARILLA", regex=True), 1700.0, base)
+        base = np.where(v_upper.str.contains("CAPIR", regex=True), 1300.0, base)
+        base = np.where(v_upper.str.contains("PASTUSA", regex=True), 1150.0, base)
+        base = np.where(v_upper.str.contains("SUPREMA", regex=True), 1080.0, base)
+        base = np.where(v_upper.str.contains("R-12|NEGRA", regex=True), 1020.0, base)
+        base = np.where(v_upper.str.contains("BETINA|RUB", regex=True), 1050.0, base)
+        base = np.where(v_upper.str.contains("SUPERIOR|UNICA", regex=True), 1000.0, base)
 
         shocks_anuales = {
-            2019: 1.00, 2020: 0.82, 2021: 1.25,
-            2022: 1.82, 2023: 1.62, 2024: 1.28, 2025: 1.18
+            2019: 1.00, 2020: 0.65, 2021: 1.35,
+            2022: 3.10, 2023: 2.15, 2024: 1.70, 2025: 1.55
         }
-        f_año = df_papa["año"].map(shocks_anuales).fillna(1.20).to_numpy(dtype=np.float64)
+        f_año = df_papa["año"].map(shocks_anuales).fillna(1.50).to_numpy(dtype=np.float64)
 
         factores_mes = {
             1: 1.02, 2: 1.05, 3: 1.08, 4: 1.06,
@@ -89,7 +89,7 @@ class IngestionService:
         f_vol = np.clip(1.0 - 0.03 * np.log1p(np.maximum(0.0, vols) / 100.0), 0.88, 1.12)
 
         precio = base * f_año * f_mes * f_vol
-        return pd.Series(np.maximum(800.0, np.round(precio, 2)), index=df_papa.index)
+        return pd.Series(np.maximum(350.0, np.round(precio, 2)), index=df_papa.index)
 
     @staticmethod
     def _limpiar_volumen_series(series: pd.Series) -> pd.Series:

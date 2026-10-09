@@ -69,6 +69,7 @@ erDiagram
     Dim_Tiempo ||--o{ Fact_Abastecimiento_SIPSA : "filtra por fecha"
     Dim_Mercado ||--o{ Fact_Abastecimiento_SIPSA : "filtra por plaza"
     Dim_Variedad ||--o{ Fact_Abastecimiento_SIPSA : "filtra por variedad"
+    Dim_Geografia ||--o{ Fact_Abastecimiento_SIPSA : "ubica procedencia municipal"
 
     Dim_Tiempo ||--o{ Fact_Precios_SIPSA : "filtra por fecha"
     Dim_Mercado ||--o{ Fact_Precios_SIPSA : "filtra por plaza"

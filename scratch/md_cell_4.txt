@@ -1,0 +1,18 @@
+---
+## 2. RESUMEN EJECUTIVO (Executive Summary)
+
+<div style="color: #000000; font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; font-size: 14px;">
+
+**Resumen Ejecutivo (Límite: 300 palabras)**  
+El presente reporte consolida la evaluación integral del mercado de la papa en Colombia durante el septenio **2019–2025**, articulando microdatos de oferta primaria municipal (**EVA - MinAgricultura/UPRA**), transacciones mayoristas (**SIPSA - DANE**) y proyecciones censales (**CNPV 2018 - DANE**). La metodología implementó un pipeline Medallion de arquitectura limpia, aplicando analítica paramétrica y no paramétrica para contrastar la oferta de campo frente a la absorción urbana.  
+
+Los **tres hallazgos cuantitativos primordiales** son:  
+1. **Concentración Geográfica y Oligopolio Espacial**: El país produce entre 3.7 y 4.5 millones de toneladas anuales en ~182,000 hectáreas, con un Índice Herfindahl-Hirschman (HHI) de **2,753 puntos**, donde Cundinamarca (38.1%), Boyacá (27.2%) y Nariño (19.8%) dominan el **85.1% de la producción nacional**, destacándose los núcleos nodales de Villapinzón, Tausa y Pasto.  
+2. **Resiliencia del Consumo Aparente e Inelasticidad**: La demanda aparente se situó entre 74.3 y 87.2 kg/persona/año, con una absorción urbana liderada por Corabastos en Bogotá (35.4%) y Cavasa en Cali (16.2%), reflejando una demanda inelástica con escasa capacidad de amortiguación agroindustrial.  
+3. **Cruce Estacional Inverso y Volatilidad Extrema**: El Coeficiente de Variación anual de precios mayoristas promedia el **21.4%**, evidenciando un cruce inverso perfecto entre el Índice de Variación Estacional (IVE) de oferta y precios ($r = -0.741$ estacional): caídas de abastecimiento en mayo-junio y octubre detonan picos de carestía superiores al 128% de la base.  
+
+Se formulan **dos recomendaciones estratégicas prioritarias**:  
+1. **Planificación Coordinada de Siembras e Infraestructura Postcosecha**: Crear un Fondo Nacional de Almacenamiento en Frío para absorber excedentes en meses pico (julio y diciembre) y evitar colapsos de precios en finca.  
+2. **Modernización de Coberturas Financieras y Fomento Agroindustrial**: Implementar contratos forward estandarizados en centrales de abasto y subsidios al seguro agrícola paramétrico frente a eventos climáticos extremos (La Niña/El Niño).
+
+</div>

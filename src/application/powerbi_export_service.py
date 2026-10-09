@@ -105,6 +105,7 @@ class PowerBIExportService:
         
         deptos_paperos_principales = ["15", "25", "52", "05", "73", "68", "17", "19", "54", "41"]
         dim_geo["es_productor_destacado"] = dim_geo["cod_depto"].isin(deptos_paperos_principales)
+        dim_geo["es_territorio_nacional"] = dim_geo["cod_depto"] != "00"
         
         return dim_geo.sort_values(by=["cod_depto", "cod_mpio"]).reset_index(drop=True)
 
@@ -153,7 +154,7 @@ class PowerBIExportService:
         principales_hubs = ["CORABASTOS", "CENTRAL MAYORISTA DE ANTIOQUIA", "CAVASA", "SURABASTOS", "CENABASTOS"]
         mercados["tipo_hub_logistico"] = np.where(
             mercados["mercado_mayorista"].str.contains("CORABASTOS|MAYORISTA|CAVASA|SURABASTOS", regex=True),
-            "Hub Metropolitano Estratégico",
+            "Hub Metropolitano Estrategico",
             "Central Mayorista Regional"
         )
         
@@ -210,17 +211,21 @@ class PowerBIExportService:
     ) -> tuple[pd.DataFrame, pd.DataFrame]:
         """
         Genera las Tablas de Hechos de Abastecimiento y de Precios Mayoristas (SIPSA).
+        Preserva el origen municipal (cod_mpio) y la variedad comercial detallada,
+        garantizando unicidad y granularidad exacta sin duplicados espurios.
         """
         sipsa = df_sipsa.copy()
         sipsa["fecha"] = pd.to_datetime(sipsa["fecha_mes"])
         sipsa["id_tiempo"] = sipsa["fecha"].dt.strftime("%Y%m%d").astype(int)
         sipsa["mercado_norm"] = sipsa["mercado_mayorista"].apply(self._limpiar_texto)
+        sipsa["cod_mpio"] = sipsa["divipola_mpio"].astype(str).str.zfill(5)
+        sipsa["variedad_comercial"] = sipsa["variedad_papa"].apply(self._limpiar_texto)
         
         # Mapear id_mercado
         mercado_map = dict(zip(dim_mercado["mercado_mayorista"], dim_mercado["id_mercado"]))
         sipsa["id_mercado"] = sipsa["mercado_norm"].map(mercado_map).fillna(0).astype(int)
         
-        # Mapear variedad
+        # Mapear variedad macro-conformada con Dim_Variedad (CRIOLLA vs PASTUSA_SUPREMA)
         sipsa["cod_variedad"] = np.where(
             sipsa["variedad_papa"].str.lower().str.contains("criolla"),
             "CRIOLLA",
@@ -231,7 +236,9 @@ class PowerBIExportService:
         cols_abast = [
             "id_tiempo",
             "id_mercado",
+            "cod_mpio",
             "cod_variedad",
+            "variedad_comercial",
             "volumen_ingreso_ton",
             "indice_estacional_oferta_ieo",
             "consumo_mayorista_per_capita_kg"
@@ -239,14 +246,16 @@ class PowerBIExportService:
         for col in ["indice_estacional_oferta_ieo", "consumo_mayorista_per_capita_kg"]:
             if col not in sipsa.columns:
                 sipsa[col] = 1.0
-        fact_abast = sipsa[cols_abast].dropna(subset=["id_tiempo", "id_mercado"]).copy()
+        fact_abast = sipsa[cols_abast].dropna(subset=["id_tiempo", "id_mercado", "cod_mpio"]).copy()
         
         # 2. Fact Precios
         sipsa["spread_precios_kg"] = sipsa["precio_max_kg"] - sipsa["precio_min_kg"]
         cols_precios = [
             "id_tiempo",
             "id_mercado",
+            "cod_mpio",
             "cod_variedad",
+            "variedad_comercial",
             "precio_prom_kg",
             "precio_min_kg",
             "precio_max_kg",
@@ -257,7 +266,7 @@ class PowerBIExportService:
         for col in ["indice_estacional_precio_iep"]:
             if col not in sipsa.columns:
                 sipsa[col] = 1.0
-        fact_precios = sipsa[cols_precios].dropna(subset=["id_tiempo", "id_mercado"]).copy()
+        fact_precios = sipsa[cols_precios].dropna(subset=["id_tiempo", "id_mercado", "cod_mpio"]).copy()
         
         return fact_abast.reset_index(drop=True), fact_precios.reset_index(drop=True)
 

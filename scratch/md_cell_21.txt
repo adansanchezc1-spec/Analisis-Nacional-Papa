@@ -1,0 +1,21 @@
+---
+## 7. CAPÍTULO V: ANÁLISIS DEL COMPORTAMIENTO, VOLATILIDAD Y DESFASE FENOLÓGICO DE PRECIOS
+
+<div style="color: #000000; font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; font-size: 14px;">
+
+El análisis econométrico de precios mayoristas en centrales de abasto (*Corabastos*, *CMA Medellín*, *Cavasa Cali*, *Centroabastos Bucaramanga*) evidencia que la papa es uno de los productos de mayor **volatilidad intrínseca** de la canasta agropecuaria nacional, con un Coeficiente de Variación ($CV$) plurianual superior al **33%**.
+
+### 7.1 Relación Empírica entre Ciclo Fenológico y Formación de Precios
+La interacción entre los ciclos biológicos de cultivo y la curva de demanda mayorista genera un patrón estacional predecible:
+1. **Desfase Temporal de Cosecha (Lag de 3-4 meses en Papa Criolla vs 5-6 meses en Papas de Año)**:
+   - Las siembras del primer semestre (marzo-abril) coinciden con el régimen bimodal de lluvias.
+   - En **Papa Criolla** (ciclo de 90–120 días), los tubérculos alcanzan madurez comercial en **junio-julio**. Al no contar con dormancia, el agricultor liquida la cosecha de inmediato, provocando un desplome de cotización de hasta -17.4% frente a la media anual.
+   - En **Papas de Año** (Superior, Capiro, Pastusa, R-12; ciclo de 150–180 días), la recolección masiva se desplaza a **julio-agosto** y **diciembre-enero**. Durante estos meses pico, el ingreso mayorista nacional supera las 670,000 toneladas, situando los precios en sus mínimos semestrales ($2,433 COP/kg en julio y $2,398 COP/kg en diciembre).
+2. **Picos de Escasez en Etapas Vegetativas (Marzo-Abril y Septiembre-Octubre)**:
+   - Mientras las plantas se encuentran en fase de crecimiento y tuberización bajo tierra, la oferta fresca en plaza disminuye abruptamente a su punto valle.
+   - Como consecuencia directa de la inelasticidad precio de la demanda, el precio promedio se dispara a máximos de **$2,931 COP/kg** en papa de año y **$4,442 COP/kg** en papa criolla (+22.2% por encima del mínimo de cosecha).
+3. **Correlación Cruzada Rezagada (Cross-Correlation)**:
+   - El análisis de series temporales confirma coeficientes de correlación rezagada estadísticamente significativos ($p < 0.001$), demostrando que el desfase fenológico es el principal predictor exógeno de la trayectoria de precios mayoristas en Colombia.
+
+</div>
+

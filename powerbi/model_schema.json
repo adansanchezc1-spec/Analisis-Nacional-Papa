@@ -82,7 +82,9 @@
       "columns": [
         {"name": "id_tiempo", "dataType": "int64"},
         {"name": "id_mercado", "dataType": "int64"},
+        {"name": "cod_mpio", "dataType": "string"},
         {"name": "cod_variedad", "dataType": "string"},
+        {"name": "variedad_comercial", "dataType": "string"},
         {"name": "volumen_ingreso_ton", "dataType": "double"},
         {"name": "indice_estacional_oferta_ieo", "dataType": "double"},
         {"name": "consumo_mayorista_per_capita_kg", "dataType": "double"}
@@ -94,7 +96,9 @@
       "columns": [
         {"name": "id_tiempo", "dataType": "int64"},
         {"name": "id_mercado", "dataType": "int64"},
+        {"name": "cod_mpio", "dataType": "string"},
         {"name": "cod_variedad", "dataType": "string"},
+        {"name": "variedad_comercial", "dataType": "string"},
         {"name": "precio_prom_kg", "dataType": "double"},
         {"name": "precio_min_kg", "dataType": "double"},
         {"name": "precio_max_kg", "dataType": "double"},
@@ -180,6 +184,14 @@
     {
       "name": "Rel_DimMercado_DimGeografia",
       "fromTable": "Dim_Mercado",
+      "fromColumn": "cod_mpio",
+      "toTable": "Dim_Geografia",
+      "toColumn": "cod_mpio",
+      "crossFilteringBehavior": "oneDirection"
+    },
+    {
+      "name": "Rel_FactAbast_DimGeografia",
+      "fromTable": "Fact_Abastecimiento_SIPSA",
       "fromColumn": "cod_mpio",
       "toTable": "Dim_Geografia",
       "toColumn": "cod_mpio",

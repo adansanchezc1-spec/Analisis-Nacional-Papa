@@ -1,0 +1,38 @@
+---
+## 4. CAPÍTULO II: CARACTERIZACIÓN TÉCNICA, AGRONÓMICA Y FENOLÓGICA DEL PRODUCTO
+
+<div style="color: #000000; font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; font-size: 14px;">
+
+Desde la perspectiva fisiológica, agronómica y de mercado, la papa en Colombia se zonifica en la franja andina de páramo y bosque altoandino entre los **2,000 y 3,500 metros sobre el nivel del mar (msnm)**, con temperaturas medias entre 10°C y 15°C, pluviosidad óptima de 800 a 1,200 mm anuales y fotoperiodo ecuatorial constante de 12 horas.
+
+### 4.1 Clasificación Botánica, Tipología y Ciclo Fenológico
+La producción colombiana se polariza en dos especies botánicas con dinámicas fenológicas contrastantes:
+* **Papas de Año o de Consumo Masivo e Industrial (*Solanum tuberosum*)**:
+  - **Duración del ciclo**: **150 a 180 días** (5 a 6 meses).
+  - **Fases Fenológicas**:
+    1. *Brotación y Emergencia (Días 0 a 30)*: Desarrollo de raíces y brotes iniciales dependientes de las reservas del tubérculo-semilla.
+    2. *Desarrollo Vegetativo y Aporque (Días 30 a 60)*: Crecimiento foliar acelerado e intercepción de radiación solar. Momento crítico del aporque para inducir estolones.
+    3. *Floración e Inducción de Tuberización (Días 60 a 105)*: Formación de tubérculos en el ápice de los estolones. Máxima susceptibilidad a estrés hídrico y requerimiento de fósforo.
+    4. *Llenado y Engrose de Tubérculos (Días 105 a 150)*: Máxima translocación de fotoasimilados hacia los tubérculos. Determinación del calibre comercial (Gruesa, Pareja, Ruyas).
+    5. *Senescencia Fisiológica y Cosecha (Días 150 a 180)*: Muerte natural del follaje, suberización de la piel y madurez para arranque.
+  - **Variedades Comerciales Clave**: **Papa Superior**, **Diacol Capiro (Capira)**, **Papa Única**, **Parda Pastusa**, **Papa Suprema**, **Papa R-12 (Roja Nariño)**, **Papa Rubí**, **Papa Betina**, **Papa Nevada**, **Papa Sabanera** y **Papa Morasurco**.
+* **Papa Criolla (*Solanum phureja*)**:
+  - **Duración del ciclo**: **90 a 120 días** (3 a 4 meses).
+  - **Fases Fenológicas**: Ciclo acelerado con tuberización temprana (días 25 a 50) y llenado compacto (días 50 a 90).
+  - **Característica Crítica de Mercado**: Carece completamente de dormancia fisiológica (reposo vegetativo). No puede almacenarse en silos ni bodegas por más de 15 a 20 días sin que brote o pierda turgencia, lo que obliga al productor a volcarla de inmediato al mercado mayorista al precio corriente.
+
+### 4.2 Dinámica de Superficie Agrícola: Área de Siembra vs. Área de Cosecha y Tasa de Pérdida
+En la agricultura de papa colombiana, la superficie cosechada no equivale estrictamente a la superficie sembrada debido a contingencias agroclimáticas y fitosanitarias:
+* **Efectividad de Cosecha Nacional**: Históricamente se sitúa en un **95.3%**, lo que implica una **pérdida estructural de superficie del 4.7% anual** (~8,000 a 17,000 hectáreas siniestradas o abandonadas por año).
+* **Factores Determinantes de Merma**:
+  1. *Heladas por Inversión Térmica*: Frecuentes en enero-febrero y julio-agosto en el Altiplano Cundiboyacense (Boyacá y Cundinamarca), que queman el área foliar en etapas 2 y 3.
+  2. *Gota o Tizón Tardío (*Phytophthora infestans*)*: Patógeno fúngico de proliferación explosiva en temporadas de lluvias torrenciales (Niña).
+  3. *Anomalías Climáticas Extremas (Niño 2023)*: En 2023 la efectividad cayó al **91.1%**, registrando una pérdida récord de **17,102 hectáreas** por déficit hídrico prolongado y encarecimiento de fertilizantes.
+
+### 4.3 Relación Teórica entre Ciclo Fenológico y Precios Mayoristas
+El ciclo biológico introduce un **mecanismo de retraso temporal (Lag Structure)** en la función de oferta:
+$$	ext{Precio}_t = f(	ext{Oferta Cosechada}_t) = f(	ext{Siembras}_{t - 	au})$$
+donde $	au pprox 3 	ext{ a } 4 	ext{ meses}$ para Papa Criolla y $	au pprox 5 	ext{ a } 6 	ext{ meses}$ para Papas de Año. En consecuencia, las decisiones de siembra tomadas en respuesta a precios altos en el mes $t$ provocan un alud de cosecha en $t + 	au$, detonando el típico ciclo de telaraña (*Cobweb Theorem*) con desplomes abruptos de cotización en centrales mayoristas.
+
+</div>
+

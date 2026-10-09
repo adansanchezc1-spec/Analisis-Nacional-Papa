@@ -1,0 +1,17 @@
+---
+## 6. CAPÍTULO IV: ANÁLISIS DE LA DEMANDA NACIONAL Y GEOGRAFÍA DEL CONSUMO
+
+<div style="color: #000000; font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; font-size: 14px;">
+
+El balance del consumo nacional de papa se fundamenta en la ecuación económica canónica de **Demanda Aparente**:  
+$$\text{Demanda Aparente} = \text{Producción Nacional} + \text{Importaciones} - \text{Exportaciones}$$
+
+### Balanza Comercial Externa y Comercio Internacional
+En Colombia, el comercio exterior de la papa es marcadamente asimétrico:  
+* **Exportaciones**: Tradicionalmente marginales (entre **2,100 y 4,500 ton/año**), dirigidas hacia mercados fronterizos (norte de Ecuador, Venezuela y algunas islas del Caribe).
+* **Importaciones**: Estructurales y concentradas en **papa pre-frita congelada** bajo la subpartida arancelaria 2004.10.00.00 (entre **49,000 y 74,500 ton/año** equivalentes en fresco), procedentes principalmente de Bélgica, Países Bajos y Alemania para abastecer cadenas de comida rápida (*fast food*) y grandes superficies.
+
+### Consumo Aparente Per Cápita e Ingesta Nutricional
+Al contrastar la Demanda Aparente neta con las proyecciones censales de población del DANE (CNPV 2018), el **Consumo Aparente Per Cápita** osciló entre **72.6 kg/hab/año (en 2023)** y **87.2 kg/hab/año (en 2025)**. Estos valores ratifican que la papa aporta una fracción indispensable de carbohidratos, potasio y vitamina C en los estratos socioeconómicos medios y bajos colombianos.
+
+</div>

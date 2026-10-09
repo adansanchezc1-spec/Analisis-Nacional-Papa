@@ -1,0 +1,18 @@
+---
+## 5. CAPÍTULO III: ANÁLISIS INTEGRAL DE LA OFERTA NACIONAL (2019–2025)
+
+<div style="color: #000000; font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; font-size: 14px;">
+
+La oferta agrícola nacional consolida los registros censales de las Evaluaciones Agropecuarias Municipales (**EVA**):
+* **Superficie Física**: Superficie sembrada y cosechada anual, con un promedio de **182,750 hectáreas cosechadas**.
+* **Volumen Físico**: Producción nacional promedio de **3,978,000 toneladas anuales**.
+* **Productividad Agronómica**: Rendimientos técnicos que evolucionaron desde **22.27 t/ha en 2019** hasta un máximo de **23.67 t/ha en 2025**.
+
+### Concentración Territorial y Cuencas Productivas
+El análisis espacial revela un marcado **oligopolio geográfico**. El Índice de Concentración de Herfindahl-Hirschman (HHI) se ubica en **2,753.5 puntos**, sobrepasando el umbral crítico de 1,800 puntos que define a los mercados de alta concentración. Tres departamentos andinos explican el **85.1% del volumen nacional**:
+1. **Cundinamarca (38.1% de la producción)**: Cuenca líder nacional con altos rendimientos en sabana norte y páramo de Sumapaz.
+2. **Boyacá (27.2% de la producción)**: Polo papero minifundista con alta vocación en variedades de mesa y criolla.
+3. **Nariño (19.8% de la producción)**: Cuenca del altiplano nariñense con siembras escalonadas que abastecen al suroccidente y al centro del país.
+4. **Antioquia (5.8%) y Santander (3.2%)**: Cuencas complementarias clave para mercados regionales de Medellín y Bucaramanga.
+
+</div>

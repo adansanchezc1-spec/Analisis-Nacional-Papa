@@ -1,0 +1,24 @@
+---
+## 3. CAPÍTULO I: INTRODUCCIÓN Y CONTEXTO MACROECONÓMICO SECTORIAL
+
+<div style="color: #000000; font-family: 'Segoe UI', Tahoma, sans-serif; line-height: 1.6; font-size: 14px;">
+
+El cultivo de la papa (*Solanum tuberosum* y *Solanum phureja*) constituye el eje estructurante de la economía campesina y la seguridad alimentaria en la región andina de Colombia. De acuerdo con el Ministerio de Agricultura y Desarrollo Rural (MADR) y la Federación Colombiana de Productores de Papa (**Fedepapa**), el subsector involucra a más de **100,000 unidades productivas familiares** distribuidas en cerca de **280 municipios de alta montaña**, generando aproximadamente **20 millones de jornales directos e indirectos** al año y representando el **3.3% del Producto Interno Bruto (PIB) agropecuario nacional**.
+
+### Cronología Causal de Choques Exógenos (2019–2025)
+Durante el periodo 2019–2025, la cadena de valor experimentó fluctuaciones macroeconómicas extremas desencadenadas por cuatro choques estructurales:
+1. **Choque de Demanda y Pandemia COVID-19 (2020)**: El cierre intempestivo del canal HORECA (hoteles, restaurantes y casinos) en el segundo trimestre de 2020 desplomó la absorción urbana institucional. La sobreoferta resultante en fincas deprimió los precios al productor por debajo de los costos marginales de recolección, desatando la histórica crisis de 'papas en carretera'.
+2. **Bloqueos Logísticos y Paro Nacional (Mayo–Junio 2021)**: El cierre de los corredores viales del altiplano cundiboyacense y de la Vía Panamericana en el suroccidente interrumpió el flujo de camiones hacia Corabastos (Bogotá) y Cavasa (Cali). Durante las semanas epidemiológicas 18 a 22 de 2021, los ingresos a centrales colapsaron en más de un 60%, disparando la cotización mayorista en un choque inflacionario transitorio pero de alta intensidad.
+3. **Crisis Global de Insumos y Fertilizantes (2022)**: El estallido del conflicto bélico en Ucrania y las restricciones de exportación en Rusia y Bielorrusia dispararon los precios internacionales de fertilizantes nitrogenados (Urea) y fosfatados (DAP) en más de un **150%**. Dado que la fertilización química representa entre el **42% y el 48% de la estructura de costos por hectárea** de papa en Colombia, miles de pequeños campesinos redujeron su densidad de siembra o abandonaron lotes, generando la menor cosecha física del septenio (**3.71 millones de toneladas**) y un récord histórico de precios que superó los **$4,300 COP/kg**.
+4. **Bivalencia Climática Extrema (La Niña 2021–2022 vs. El Niño 2023–2024)**: El exceso de precipitación prolongada por el Fenómeno de La Niña incrementó la severidad de plagas fúngicas como la gota (*Phytophthora infestans*), encareciendo los esquemas de protección fitosanitaria. Posteriormente, el Fenómeno de El Niño entre finales de 2023 y comienzos de 2024 provocó heladas matutinas y déficits hídricos que mermaron los calibres en Boyacá y Cundinamarca.
+
+### Cadena de Valor, Márgenes de Comercialización y Usos del Producto
+La cadena de suministro se estructura a través de una intermediación asimétrica:
+* **Productor en Finca (38%–42% del precio final)**: Enfrenta alta dispersión geográfica, nula capacidad de refrigeración y venta urgente a 'pie de camión' en bultos heterogéneos de 50 kg.
+* **Flete y Transporte Intermunicipal (18%–22% del precio final)**: Asume costos de combustible, peajes y riesgos viales en camiones de estacas.
+* **Mayorista en Central de Abasto (15%–18% del precio final)**: Arbitra la liquidez diaria, asume mermas físicas y comercializa hacia minoristas.
+* **Minorista / Tendero Tradicional (25%–28% del precio final)**: Distribuye al consumidor en fracciones menores (kilos, libras).
+
+**Destino y Uso del Tubérculo**: El **78% de la producción nacional** se destina al **consumo en fresco** (hogares y gastronomía tradicional), mientras que el **22% restante** es absorbido por la **agroindustria de fritura** (hojuelas y bastones pre-fritos congelados, dominado por la variedad Diacol Capiro).
+
+</div>
