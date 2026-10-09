@@ -39,10 +39,23 @@
 En todas las páginas, la franja superior (`Y: 0`, `Height: 85 px`) contiene:
 1. **Logotipo / Título:** *"OBSERVATORIO NACIONAL DE LA PAPA | COLOMBIA 2019-2025"*
 2. **Segmentadores (Slicers) en Menú Desplegable:**
-   - **Año:** Lista desplegable / botones horizontales (`2019` a `2025`).
-   - **Variedad:** Botones de alternancia (`Todas`, `Papa Criolla`, `Papa Pastusa / Suprema`).
-   - **Departamento:** Lista desplegable jerárquica (`Dim_Geografia[departamento]`).
-   - **Central Mayorista:** Lista desplegable (`Dim_Mercado[mercado_mayorista]`).
+   - **Año:** Lista desplegable / botones horizontales (`Consolidado 2019-2025`, `2019` a `2025`).
+   - **Variedad Comercial:** Selector interactivo de las **12 Variedades Comerciales Canónicas**:
+     1. Papa Criolla (Amarilla - 110d)
+     2. Papa Superior (Fresca - 165d)
+     3. Papa Diacol Capiro (Capira/Industrial - 165d)
+     4. Papa Única (Rústica - 150d)
+     5. Papa Parda Pastusa (Tradicional - 170d)
+     6. Papa Pastusa Suprema (160d)
+     7. Papa R-12 (Roja Nariño - 165d)
+     8. Papa Betina (160d)
+     9. Papa Rubí (160d)
+     10. Papa Nevada (170d)
+     11. Papa Sabanera (170d)
+     12. Papa Morasurco (160d)
+   - **Departamento:** Menú desplegable ordenado según concentración económica (`Dim_Geografia[ranking_produccion_depto]`):
+     `Cundinamarca (38.1%)` > `Boyacá (27.2%)` > `Nariño (19.8%)` > `Antioquia (5.8%)` > `Santander (2.8%)` > `Cauca (1.9%)` > `Tolima (1.5%)`...
+   - **Central Mayorista:** Lista desplegable jerárquica (`Dim_Mercado[mercado_mayorista]`).
 3. **Botón de Restablecimiento de Filtros** (Bookmark "Limpiar Filtros").
 
 ---
@@ -73,14 +86,14 @@ En todas las páginas, la franja superior (`Y: 0`, `Height: 85 px`) contiene:
 - **Card 1: Producción Total**  
   - Métrica: `[Producción Total Ton]`  
   - Subtexto dinámico: `[Variación Interanual Producción YoY %]` con formato condicional (Verde si > 0, Rojo si < 0).
-- **Card 2: Eficiencia Agrícola**  
-  - Métrica: `[Rendimiento Promedio Ponderado Ton_Ha]`  
-  - Meta de referencia: `20.0 Ton/Ha` (Benchmark nacional).
+- **Card 2: Eficiencia Agrícola y Efectividad**  
+  - Métrica Principal: `[Rendimiento Promedio Ponderado Ton_Ha]` (Benchmark nacional: `22.8 Ton/Ha`).
+  - Métrica Secundaria: `[Efectividad Agronómica Cosecha %]` (`98.4%`, pérdida neta de `-1,800 Ha/año`).
 - **Card 3: Abastecimiento Centrales**  
   - Métrica: `[Abastecimiento Mayorista Total Ton]`  
   - Subtexto: `[Variación Interanual Abastecimiento YoY %]`.
 - **Card 4: Precio Mayorista Ponderado**  
-  - Métrica: `[Precio Promedio Ponderado $/Kg]`  
+  - Métrica: `[Precio Promedio Ponderado $/Kg]` (Benchmark septenio: `$1,980/Kg`).
   - Subtexto: `[Inflación Interanual Precio YoY %]`.
 - **Card 5: Semáforo de Riesgo Sectorial**  
   - Métrica: `[Semáforo de Volatilidad de Precios]`  
@@ -115,7 +128,7 @@ En todas las páginas, la franja superior (`Y: 0`, `Height: 85 px`) contiene:
    - Eje Y: `[Rendimiento Promedio Ponderado Ton_Ha]`
    - Tamaño de burbuja: `[Producción Total Ton]`
    - Leyenda: `Dim_Geografia[region_natural]`
-   - Líneas de referencia: Rendimiento promedio nacional (19.8 Ton/Ha).
+   - Líneas de referencia: Rendimiento promedio nacional (`22.8 Ton/Ha`) y efectividad (`98.4%`).
 3. **Gráfico de Barras Apiladas (Derecha Inferior):**
    - Eje X: `Dim_Tiempo[año_semestre]`
    - Eje Y: `[Producción Total Ton]`

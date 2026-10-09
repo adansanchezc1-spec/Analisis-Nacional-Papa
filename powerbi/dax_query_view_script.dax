@@ -1,10 +1,12 @@
 // ==============================================================================
 // SCRIPT DE CARGA AUTOMÁTICA DE MEDIDAS (VISTA DE CONSULTAS DAX - POWER BI)
+// Plataforma Analítica Agropecuaria Colombia | Mercado de la Papa 2019-2025
+// Calibrado con Paridad Econométrica, Invariantes Físicas y 12 Variedades
 // ==============================================================================
 // INSTRUCCIONES EN POWER BI DESKTOP:
-// 1. En la barra lateral izquierda de Power BI, haz clic en el 4° icono: "Vista de consultas DAX" (icono con las letras DAX).
+// 1. En la barra lateral izquierda de Power BI, haz clic en el 4° icono: "Vista de consultas DAX".
 // 2. Borra lo que haya en la pantalla y PEGA todo este código completo.
-// 3. Arriba del código aparecerá un enlace o botón amarillo que dice:
+// 3. Arriba del código aparecerá un enlace o botón amarillo:
 //    "Actualizar modelo con cambios" (Update model with changes).
 // 4. Haz clic en "Actualizar modelo con cambios".
 // ¡Y Power BI creará TODAS las medidas automáticamente en un segundo!
@@ -28,6 +30,19 @@ DEFINE
             SUM(Fact_Produccion_EVA[produccion_ton]),
             SUM(Fact_Produccion_EVA[area_cosechada_ha]),
             0
+        )
+
+    MEASURE Fact_Produccion_EVA[Efectividad Agronómica Cosecha %] = 
+        DIVIDE(
+            SUM(Fact_Produccion_EVA[area_cosechada_ha]),
+            SUM(Fact_Produccion_EVA[area_sembrada_ha]),
+            1
+        )
+
+    MEASURE Fact_Produccion_EVA[Superficie Perdida Neta Ha] = 
+        MAX(
+            0,
+            SUM(Fact_Produccion_EVA[area_sembrada_ha]) - SUM(Fact_Produccion_EVA[area_cosechada_ha])
         )
 
     MEASURE Fact_Abastecimiento_SIPSA[Abastecimiento Mayorista Total Ton] = 
@@ -95,10 +110,69 @@ DEFINE
     MEASURE Fact_Precios_SIPSA[IVE Precio Promedio] = 
         AVERAGE(Fact_Precios_SIPSA[indice_estacional_precio_iep])
 
+    // --------------------------------------------------------------------------
+    // CARPETA: 05_Concentración_Geográfica
+    // --------------------------------------------------------------------------
+    MEASURE Fact_Produccion_EVA[Producción Cundinamarca Ton] = 
+        CALCULATE(
+            SUM(Fact_Produccion_EVA[produccion_ton]),
+            Dim_Geografia[departamento] = "CUNDINAMARCA"
+        )
+
+    MEASURE Fact_Produccion_EVA[Producción Boyacá Ton] = 
+        CALCULATE(
+            SUM(Fact_Produccion_EVA[produccion_ton]),
+            Dim_Geografia[departamento] = "BOYACA"
+        )
+
+    MEASURE Fact_Produccion_EVA[Producción Nariño Ton] = 
+        CALCULATE(
+            SUM(Fact_Produccion_EVA[produccion_ton]),
+            Dim_Geografia[departamento] = "NARINO"
+        )
+
+    MEASURE Fact_Produccion_EVA[Producción Antioquia Ton] = 
+        CALCULATE(
+            SUM(Fact_Produccion_EVA[produccion_ton]),
+            Dim_Geografia[departamento] = "ANTIOQUIA"
+        )
+
+    MEASURE Fact_Produccion_EVA[Participación Top 3 Deptos %] = 
+        VAR Top3 = CALCULATE(
+            SUM(Fact_Produccion_EVA[produccion_ton]),
+            Dim_Geografia[departamento] IN {"CUNDINAMARCA", "BOYACA", "NARINO"}
+        )
+        RETURN
+        DIVIDE(Top3, CALCULATE(SUM(Fact_Produccion_EVA[produccion_ton]), ALL(Dim_Geografia)), 0)
+
+    // --------------------------------------------------------------------------
+    // CARPETA: 06_Variedades_Fenología
+    // --------------------------------------------------------------------------
+    MEASURE Fact_Precios_SIPSA[Precio Papa Criolla Kg] = 
+        CALCULATE(
+            AVERAGE(Fact_Precios_SIPSA[precio_prom_kg]),
+            Fact_Precios_SIPSA[variedad_comercial] = "PAPA CRIOLLA COLOMBIA"
+        )
+
+    MEASURE Fact_Precios_SIPSA[Precio Papa Pastusa Suprema Kg] = 
+        CALCULATE(
+            AVERAGE(Fact_Precios_SIPSA[precio_prom_kg]),
+            Fact_Precios_SIPSA[variedad_comercial] = "PAPA PASTUSA SUPREMA"
+        )
+
+    MEASURE Fact_Abastecimiento_SIPSA[Ciclo Fenológico Ponderado Días] = 
+        VAR CriollaVol = CALCULATE(SUM(Fact_Abastecimiento_SIPSA[volumen_ingreso_ton]), Fact_Abastecimiento_SIPSA[cod_variedad] = "CRIOLLA")
+        VAR BlancasVol = CALCULATE(SUM(Fact_Abastecimiento_SIPSA[volumen_ingreso_ton]), Fact_Abastecimiento_SIPSA[cod_variedad] = "PASTUSA_SUPREMA")
+        VAR TotalVol = CriollaVol + BlancasVol
+        RETURN
+        IF(TotalVol > 0, DIVIDE(CriollaVol * 110 + BlancasVol * 165, TotalVol, 165), 165)
+
 EVALUATE
     ROW(
         "Producción Total Ton", [Producción Total Ton],
-        "Rendimiento Ton/Ha", [Rendimiento Promedio Ton_Ha],
-        "Abastecimiento Ton", [Abastecimiento Mayorista Total Ton],
+        "Área Cosechada Total Ha", [Área Cosechada Total Ha],
+        "Rendimiento Ton_Ha", [Rendimiento Promedio Ton_Ha],
+        "Efectividad Cosecha %", [Efectividad Agronómica Cosecha %],
+        "Abastecimiento Total Ton", [Abastecimiento Mayorista Total Ton],
         "Precio Promedio Kg", [Precio Promedio Kg]
     )

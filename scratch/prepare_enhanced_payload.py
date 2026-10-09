@@ -22,8 +22,8 @@ def clean_var_name(v):
     if 'SUPERIOR' in v: return 'Papa Superior'
     if 'UNICA' in v or 'ÚNICA' in v or 'NICA' in v: return 'Papa Única'
     if 'CAPIRA' in v or 'CAPIRO' in v: return 'Papa Diacol Capiro'
-    if 'PASTUSA' in v: return 'Papa Parda Pastusa'
-    if 'SUPREMA' in v: return 'Papa Suprema'
+    if 'PASTUSA' in v and 'SUPREMA' not in v: return 'Papa Parda Pastusa'
+    if 'SUPREMA' in v: return 'Papa Pastusa Suprema'
     if 'R-12' in v or 'R12' in v: return 'Papa R-12'
     if 'BETINA' in v: return 'Papa Betina'
     if 'RUBI' in v or 'RUBÍ' in v or 'RUB' in v: return 'Papa Rubí'
@@ -44,7 +44,7 @@ pheno_days = {
     'Papa Única': 150,
     'Papa Diacol Capiro': 165,
     'Papa Parda Pastusa': 170,
-    'Papa Suprema': 160,
+    'Papa Pastusa Suprema': 160,
     'Papa R-12': 165,
     'Papa Betina': 160,
     'Papa Rubí': 160,

@@ -32,7 +32,10 @@
         {"name": "cod_depto", "dataType": "string"},
         {"name": "departamento", "dataType": "string"},
         {"name": "region_natural", "dataType": "string"},
-        {"name": "es_productor_destacado", "dataType": "boolean"}
+        {"name": "es_productor_destacado", "dataType": "boolean"},
+        {"name": "es_territorio_nacional", "dataType": "boolean"},
+        {"name": "ranking_produccion_depto", "dataType": "int64"},
+        {"name": "participacion_oferta_pct", "dataType": "double"}
       ]
     },
     {

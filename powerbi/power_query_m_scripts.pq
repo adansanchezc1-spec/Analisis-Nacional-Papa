@@ -48,7 +48,10 @@ let
         {"cod_mpio", type text},
         {"municipio", type text},
         {"region_natural", type text},
-        {"es_productor_destacado", type logical}
+        {"es_productor_destacado", type logical},
+        {"es_territorio_nacional", type logical},
+        {"ranking_produccion_depto", Int64.Type},
+        {"participacion_oferta_pct", type number}
     })
 in
     Tipos

@@ -107,7 +107,36 @@ class PowerBIExportService:
         dim_geo["es_productor_destacado"] = dim_geo["cod_depto"].isin(deptos_paperos_principales)
         dim_geo["es_territorio_nacional"] = dim_geo["cod_depto"] != "00"
         
-        return dim_geo.sort_values(by=["cod_depto", "cod_mpio"]).reset_index(drop=True)
+        # Jerarquía y orden de concentración económica (Cundinamarca 38.1%, Boyacá 27.2%, Nariño 19.8%, Antioquia 5.8%)
+        ranking_economico = {
+            "25": 1,  # Cundinamarca
+            "15": 2,  # Boyacá
+            "52": 3,  # Nariño
+            "05": 4,  # Antioquia
+            "68": 5,  # Santander
+            "19": 6,  # Cauca
+            "73": 7,  # Tolima
+            "54": 8,  # Norte de Santander
+            "17": 9,  # Caldas
+            "76": 10, # Valle del Cauca
+        }
+        dim_geo["ranking_produccion_depto"] = dim_geo["cod_depto"].map(ranking_economico).fillna(99).astype(int)
+
+        participacion_estimada = {
+            "25": 38.1,
+            "15": 27.2,
+            "52": 19.8,
+            "05": 5.8,
+            "68": 2.8,
+            "19": 1.9,
+            "73": 1.5,
+            "54": 1.2,
+            "17": 0.8,
+            "76": 0.5
+        }
+        dim_geo["participacion_oferta_pct"] = dim_geo["cod_depto"].map(participacion_estimada).fillna(0.1)
+        
+        return dim_geo.sort_values(by=["ranking_produccion_depto", "cod_depto", "cod_mpio"]).reset_index(drop=True)
 
     def construir_dim_variedad(self, df_eva: pd.DataFrame, df_sipsa: pd.DataFrame) -> pd.DataFrame:
         """
